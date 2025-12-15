@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Map Test</title>
+  <style>
+    #map { height: 100vh; width: 100%; }  /*いったん縦横いっぱいに表示*/
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script>
+    function initMap() {
+      const center = { lat: 41.7687, lng: 140.7288 }; // 函館あたり
+      new google.maps.Map(document.getElementById("map"), {
+        zoom: 14,
+        center: center
+      });
+    }
+  </script>
+<!-- Google Maps APIkey = AIzaSyBDLY5XpYQnGW9BEMFCWSvm8hDvGIlD1TE -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDLY5XpYQnGW9BEMFCWSvm8hDvGIlD1TE&callback=initMap"
+    
+    async defer>
+  </script>
+</body>
+</html>

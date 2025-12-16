@@ -177,3 +177,15 @@ body {
   filter: blur(0.4px);
 }
 
+.signup-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.signup-link a {
+  color: white;
+  text-decoration: underline;
+}
+

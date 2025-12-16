@@ -25,30 +25,71 @@ body {
   margin-bottom: 30px;
 }
 
-.menu {
+.zigzag {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
 }
 
-.menu-btn {
-  display: block;
-  padding: 20px;
-  text-align: center;
-  border-radius: 12px;
+/* 正方形カード */
+.card {
+  width: 140px;
+  height: 140px;
   background: #f0f0f0;
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   text-decoration: none;
   color: black;
+  font-weight: bold;
+  font-size: 18px;
 }
 
-.menu-btn span {
-  font-size: 20px;
+/* 左右ずらし */
+.left {
+  align-self: flex-start;
+}
+
+.right {
+  align-self: flex-end;
+}
+
+/*キラキラ*/
+.card:hover {
+  background: #e0e7ff;
+  transform: scale(1.03);
+}
+
+/* ログインエリア */
+.login-area {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 60px;
+}
+
+.login-area input {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* ログインボタン */
+.login-btn {
+  margin-top: 20px;
+  padding: 14px;
+  text-align: center;
+  background: #f0f0f0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: black;
   font-weight: bold;
 }
 
-.menu-btn small {
-  display: block;
-  margin-top: 4px;
-  font-size: 12px;
-  opacity: 0.6;
+.login-btn:hover {
+  background: #e0e7ff;
 }

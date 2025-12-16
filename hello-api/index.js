@@ -19,18 +19,27 @@ app.get("/hello", (req, res) => {
 
 //ユーザー登録API[青木]
 app.post("/users", (req, res) => {
-  const {username, email, password} = req.body;
+  const { username, email, password } = req.body;
 
-  if(!username || !email || !password){
+  if (!username || !email || !password) {
     return res.status(400).json({
       error: "必要な項目が不足しています"
     });
   }
 
   const user = {
-    user_id: nextUserID
-  }
-})
+    user_id: nextUserID,
+    username,
+    email,
+    password
+  };
+
+  users.push(user);   // ← 追加[門脇]
+  nextUserID++;       // ← 追加[門脇]
+
+  res.json(user);     // ← 追加[門脇]
+});
+
 
 //星座・期間保存API[門脇]
 app.post("/stars", (req, res) => {
@@ -51,15 +60,15 @@ app.post("/stars", (req, res) => {
   };
 
   //仮DBに保存[門脇]
-  starSelections.push(data);
+  starSigns.push(data);
 
   //保存した内容を返す[門脇]
-  res.json(data);
+  res.json(starSigns);
 });
 
 // 星座一覧取得API[門脇]
 app.get("/stars", (req, res) => {
-  res.json(starSelections);
+  res.json(starSigns);
 });
 
 

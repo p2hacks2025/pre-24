@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Photo Detail</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Photo Detail</h1>
+
+  <div id="photo-detail"></div>
+
+  <a href="album.html" class="btn">Back to Album</a>
+
+  <script>
+    // URLパラメータから id を取得
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    // 写真データの代わりに文字だけ
+    const photos = {
+      1: { desc: "写真1の詳細を表示中" },
+      2: { desc: "写真2の詳細を表示中" },
+      3: { desc: "写真3の詳細を表示中" }
+    };
+
+    // 表示
+    if (photos[id]) {
+      document.getElementById("photo-detail").innerHTML = `<p>${photos[id].desc}</p>`;
+    } else {
+      document.getElementById("photo-detail").innerHTML = "<p>写真が見つかりません</p>";
+    }
+  </script>
+</body>
+</html>

@@ -4,13 +4,33 @@ const app = express();
 // JSONを扱えるようにする[門脇]
 app.use(express.json());
 
-// 仮のデータベース（メモリ）[門脇]
-const starSelections = [];
+// 星座・期間の仮のデータベース（メモリ）[門脇]
+const starSigns = [];
+let nextStarSignID = 1;
+
+//ユーザーの仮のデータベース[青木]
+const users = [];
+let nextUserID = 1;
 
 //動作確認用[門脇]
 app.get("/hello", (req, res) => {
   res.send("Hello World");
 });
+
+//ユーザー登録API[青木]
+app.post("/users", (req, res) => {
+  const {username, email, password} = req.body;
+
+  if(!username || !email || !password){
+    return res.status(400).json({
+      error: "必要な項目が不足しています"
+    });
+  }
+
+  const user = {
+    user_id: nextUserID
+  }
+})
 
 //星座・期間保存API[門脇]
 app.post("/stars", (req, res) => {

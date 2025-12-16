@@ -93,3 +93,42 @@ body {
 .login-btn:hover {
   background: #e0e7ff;
 }
+
+/* =========================
+   Journey画面（縦スクロール対応）
+========================= */
+
+.journey-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  margin-top: 20px;
+
+  /* ここが重要 */
+  overflow-y: auto;
+  max-height: 420px;  /* タイトル＋Backを除いた高さ */
+  padding-right: 6px; /* スクロールバー余白 */
+}
+
+/* Journey用カード（正方形） */
+.journey-card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f0f0f0;
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.journey-card small {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: 0.6;
+}

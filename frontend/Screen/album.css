@@ -1,0 +1,35 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  /*background: url("images/book-background.jpg") no-repeat center center fixed;
+  background-size: cover; /* 背景に本の画像を敷く */
+  background-color: rgb(151, 214, 234); /*背景の本の画像の代わり*/
+}
+
+.album {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2列×2行で4枚配置 */
+  gap: 20px;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8); /* 半透明で本の上に紙ページ風 */
+  border-radius: 10px;
+}
+
+.album a {
+  display: block;
+  padding: 40px;
+  background: #fdfdfd;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.album a:hover {
+  transform: scale(1.05);
+  background: #fffbe6; /* ホバーで少し色を変える */
+}

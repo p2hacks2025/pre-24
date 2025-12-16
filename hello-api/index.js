@@ -1,3 +1,4 @@
+console.log("index.js loaded");//コンソール確認用[梨本]
 const express = require("express");
 const app = express();
 
@@ -18,6 +19,7 @@ app.get("/hello", (req, res) => {
 });
 
 //ユーザー登録API[青木]
+console.log("users API registered");//コンソール確認用[梨本]
 app.post("/users", (req, res) => {
   const {username, email, password} = req.body;
 
@@ -28,8 +30,12 @@ app.post("/users", (req, res) => {
   }
 
   const user = {
-    user_id: nextUserID
-  }
+    user_id: nextUserID,username,email
+  };
+  users.push(user);
+  nextUserID++;
+
+  res.json(user);
 })
 
 //星座・期間保存API[門脇]
@@ -44,6 +50,7 @@ app.post("/stars", (req, res) => {
   }
 
   const data = {
+    id: nextStarSignID,
     user_id,
     star_name,
     start_date,
@@ -51,7 +58,8 @@ app.post("/stars", (req, res) => {
   };
 
   //仮DBに保存[門脇]
-  starSelections.push(data);
+  starSigns.push(data);
+  nextStarSignID++;
 
   //保存した内容を返す[門脇]
   res.json(data);
@@ -59,7 +67,7 @@ app.post("/stars", (req, res) => {
 
 // 星座一覧取得API[門脇]
 app.get("/stars", (req, res) => {
-  res.json(starSelections);
+  res.json(starSigns);
 });
 
 

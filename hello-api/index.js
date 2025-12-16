@@ -41,6 +41,24 @@ app.post("/users", (req, res) => {
 });
 
 
+// ログインAPI（追加）[門脇]
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ error: "ユーザー名またはパスワードが不足しています" });
+  }
+
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (!user) {
+    return res.status(401).json({ error: "ユーザー名またはパスワードが違います" });
+  }
+
+  res.json({ message: "ログイン成功", user_id: user.user_id, username: user.username });
+});
+
+
 //星座・期間保存API[門脇]
 app.post("/stars", (req, res) => {
   const { user_id, star_name, start_date, end_date } = req.body;

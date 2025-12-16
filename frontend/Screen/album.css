@@ -3,8 +3,23 @@ body {
   text-align: center;
   /*background: url("images/book-background.jpg") no-repeat center center fixed;
   background-size: cover; /* 背景に本の画像を敷く */
-  background-color: rgb(151, 214, 234); /*背景の本の画像の代わり*/
+  background: linear-gradient(to bottom, #001a4d, #0066cc, #001a4d); /*背景の本の画像の代わり（本の画像は今はまだ作ってない）*/
+  color: white;
+  position: relative;
+
 }
+
+/*body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.7;
+}
+*/
+  /*星のつもりの白い点。ノートみたいになったので保留中*/
+
 
 .album {
   display: grid;
@@ -32,4 +47,34 @@ body {
 .album a:hover {
   transform: scale(1.05);
   background: #fffbe6; /* ホバーで少し色を変える */
+}
+
+
+/* 写真枠 （アルバム詳細画面）*/
+#photo-detail {
+  margin: 30px auto;
+  padding: 20px;
+  width: 400px;         /* 横幅を固定 */
+  height: 400px;        /* 高さを固定 → 正方形に近い形 */
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;        /* 中央寄せ用 */
+  align-items: center;  /* 縦方向中央 */
+  justify-content: center; /* 横方向中央 */
+
+}
+
+/* コメント枠 （アルバム詳細画面）*/
+#comment-frame {
+  margin: 20px auto;
+  padding: 20px;
+  width: 600px;
+  height: 200px;        /* 縦を長めに指定 */
+  background: #f9f9f9;
+  border: 2px solid #aaa;
+  border-radius: 8px;
+  text-align: left;
+
 }

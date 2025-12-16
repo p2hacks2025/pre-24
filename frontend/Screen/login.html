@@ -13,13 +13,46 @@
 
 
     <div class="login-area">
-      <input type="text" placeholder="User Name">
-      <input type="password" placeholder="Password">
+      <input id="username" type="text" placeholder="User Name">
+      <input id="password" type="password" placeholder="Password">
 
       <!-- 仮ログイン -->
       <a href="home.html" class="login-btn">LOGIN</a>
     </div>
 
   </div>
+
+  <script>
+    async function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (!username || !password) {
+        alert("ユーザー名とパスワードを入力してください");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          localStorage.setItem("user_id", data.user_id);
+          localStorage.setItem("username", data.username);
+
+          location.href = "home.html";
+        } else {
+          alert(data.error);
+        }
+      } catch (err) {
+        alert("サーバーに接続できません");
+      }
+    }
+  </script>
 </body>
 </html>

@@ -21,22 +21,45 @@ app.get("/hello", (req, res) => {
 //ユーザー登録API[青木]
 console.log("users API registered");//コンソール確認用[梨本]
 app.post("/users", (req, res) => {
-  const {username, email, password} = req.body;
+  const { username, email, password } = req.body;
 
-  if(!username || !email || !password){
+  if (!username || !email || !password) {
     return res.status(400).json({
       error: "必要な項目が不足しています"
     });
   }
 
   const user = {
-    user_id: nextUserID,username,email
+    user_id: nextUserID,
+    username,
+    email,
+    password
   };
-  users.push(user);
-  nextUserID++;
 
-  res.json(user);
-})
+  users.push(user);   // ← 追加[門脇]
+  nextUserID++;       // ← 追加[門脇]
+
+  res.json(user);     // ← 追加[門脇]
+});
+
+
+// ログインAPI（追加）[門脇]
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ error: "ユーザー名またはパスワードが不足しています" });
+  }
+
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (!user) {
+    return res.status(401).json({ error: "ユーザー名またはパスワードが違います" });
+  }
+
+  res.json({ message: "ログイン成功", user_id: user.user_id, username: user.username });
+});
+
 
 //星座・期間保存API[門脇]
 app.post("/stars", (req, res) => {
@@ -59,17 +82,15 @@ app.post("/stars", (req, res) => {
 
   //仮DBに保存[門脇]
   starSigns.push(data);
-  nextStarSignID++;
 
   //保存した内容を返す[門脇]
-  res.json(data);
+  res.json(starSigns);
 });
 
 // 星座一覧取得API[門脇]
 app.get("/stars", (req, res) => {
   res.json(starSigns);
 });
-
 
 const PORT = 3000;
 app.listen(PORT, () => {

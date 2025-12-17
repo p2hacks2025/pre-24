@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Photo Upload</title>
+  <link rel="stylesheet" href="album.css">
+  <style>
+    /* アップロード枠 （アルバム詳細画面と同じ雰囲気） */
+    #upload-frame {
+      margin: 30px auto;
+      padding: 20px;
+      width: 400px;          /* 写真枠と同じ幅 */
+      height: 200px;         /* 高さは少し低め */
+      background: #fff;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 送信ボタン */
+    .upload-btn {
+      display: block;
+      margin: 20px auto;     /* 枠の下に中央寄せ */
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .upload-btn:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <h1>写真アップロード</h1>
+
+  <!-- メインの四角 -->
+  <div id="upload-frame">
+    <input type="file" id="photo" accept="image/*">
+  </div>
+
+  <!-- 四角の下に送信ボタン -->
+  <button class="upload-btn" onclick="upload()">送信</button>
+
+  <a href="album.html" class="btn">Back to Album</a>
+
+  <script>
+    async function upload() {
+      const fileInput = document.getElementById("photo");
+      if (!fileInput.files.length) {
+        alert("写真を選択してください");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("photo", fileInput.files[0]);
+
+      try {
+        const res = await fetch("http://localhost:3000/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await res.json();
+        console.log(data);
+        alert("アップロード完了！（仮）");
+      } catch (err) {
+        console.error(err);
+        alert("アップロードに失敗しました");
+      }
+    }
+  </script>
+</body>
+</html>

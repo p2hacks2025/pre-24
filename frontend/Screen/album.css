@@ -92,7 +92,7 @@ body {
   font-size: 14px;
 }
 
-/* 右上の小さめの四角 */
+/* 右上の小さめの四角(アルバム詳細) */
 .small-box {
   position: absolute;
   top: 10px;
@@ -106,3 +106,5 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+

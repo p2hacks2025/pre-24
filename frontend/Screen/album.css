@@ -33,8 +33,10 @@ body {
 }
 
 .album a {
-  display: block;
-  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;       /* 正方形を維持 */
   background: #fdfdfd;
   border: 2px solid #ccc;
   border-radius: 8px;

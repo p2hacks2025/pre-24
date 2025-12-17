@@ -204,7 +204,6 @@ body {
   overflow: hidden;
 }
 
-<<<<<<< HEAD
 
 
 /* 写真アップロードボタンのスタイル */
@@ -223,7 +222,6 @@ body {
 
 .upload-btn:hover {
   background-color: #2980b9;
-=======
 /* =========================
    Setting Screen
 ========================= */
@@ -328,5 +326,4 @@ body {
 
 .switch input:checked + .slider::before {
   transform: translateX(20px);
->>>>>>> f4cdbde393822e9dad3b41a2aa625804fb251011
 }

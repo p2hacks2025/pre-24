@@ -203,3 +203,23 @@ body {
   border-radius: 16px;
   overflow: hidden;
 }
+
+
+
+/* 写真アップロードボタンのスタイル */
+.upload-btn {
+  display: block;
+  margin: 20px auto;   /* 中央寄せ */
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none; /* aタグでもボタン風に */
+}
+
+.upload-btn:hover {
+  background-color: #2980b9;
+}

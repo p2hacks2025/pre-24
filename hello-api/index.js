@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();//.envに置いたGoogle map APIキーを読む
+
 
 // JSONを扱えるようにする[門脇]
 app.use(express.json());
@@ -12,9 +14,33 @@ let nextStarSignID = 1;
 const users = [];
 let nextUserID = 1;
 
+// 仮の地図ピン取得API[梨本]
+app.get("/map", (req, res) => {
+  res.json([
+    {
+      lat: 35.681236,
+      lng: 139.767125,
+      title: "東京駅"
+    },
+    {
+      lat: 35.689592,
+      lng: 139.700413,
+      title: "新宿"
+    }
+  ]);
+});
+
 //動作確認用[門脇]
 app.get("/hello", (req, res) => {
   res.send("Hello World");
+});
+
+//Google Maps APIキー取得API[梨本]
+app.get("/maps", (req, res) => {
+  console.log("ENV:", process.env.GOOGLE_MAPS_API_KEY);//コンソール確認用
+  res.json({
+    apiKey: process.env.GOOGLE_MAPS_API_KEY
+  });
 });
 
 //ユーザー登録API[青木]
@@ -71,6 +97,7 @@ app.post("/stars", (req, res) => {
   }
 
   const data = {
+    id: nextStarSignID,
     user_id,
     star_name,
     start_date,
@@ -88,7 +115,6 @@ app.post("/stars", (req, res) => {
 app.get("/stars", (req, res) => {
   res.json(starSigns);
 });
-
 
 const PORT = 3000;
 app.listen(PORT, () => {

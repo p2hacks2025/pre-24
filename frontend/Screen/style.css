@@ -329,3 +329,105 @@ body {
 }
 }
 
+/* =========================
+   Setting Scroll
+========================= */
+.setting-scroll {
+  overflow-y: auto;
+  height: calc(640px - 140px);
+  padding-bottom: 20px;
+}
+
+/* =========================
+   Setting Sections
+========================= */
+.setting-section {
+  margin-top: 24px;
+}
+
+.setting-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+/* =========================
+   Setting Item
+========================= */
+.setting-item {
+  background: #f5f5f7;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+  color: #000;
+  text-decoration: none;
+}
+
+.setting-item:active {
+  transform: scale(0.98);
+}
+
+/* ログアウト */
+.setting-item.link {
+  color: #d00;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* 右側の値 */
+.setting-value {
+  font-size: 14px;
+  color: #666;
+}
+
+/* =========================
+   iOS Switch
+========================= */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: 0.3s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+  background-color: #4cd964;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(20px);
+}

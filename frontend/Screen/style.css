@@ -192,3 +192,14 @@ body {
   text-decoration: underline;
 }
 
+/* =========================
+   Map
+========================= */
+
+.map-area {
+  width: 100%;
+  height: 360px;
+  margin-top: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+}

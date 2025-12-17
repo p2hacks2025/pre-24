@@ -2,18 +2,39 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Journey Detail</title>
+  <title>Map</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="center">
   <div class="phone">
 
-    <h1 class="title">Journey Detail</h1>
+    <h1 class="title" id="map-title">Map</h1>
 
-    <p>ここからさらに物語や体験が広がります（仮）</p>
+    <!-- Google Map -->
+    <div class="map-area">
+      <iframe
+        src="https://www.google.com/maps?q=函館市&output=embed"
+        width="100%"
+        height="100%"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+      ></iframe>
+    </div>
 
     <a href="journey.html" class="back-btn">Back</a>
 
   </div>
+
+  <script>
+    // 星座名を受け取る（今後使える）
+    const params = new URLSearchParams(location.search);
+    const name = params.get("name");
+
+    if (name) {
+      document.getElementById("map-title").textContent =
+        name.toUpperCase() + " Map";
+    }
+  </script>
 </body>
 </html>

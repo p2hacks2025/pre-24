@@ -36,6 +36,14 @@
     .upload-btn:hover {
       background-color: #2980b9;
     }
+
+   #upload-frame img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+
   </style>
 </head>
 <body>
@@ -43,6 +51,7 @@
 
   <!-- メインの四角 -->
   <div id="upload-frame">
+    <img id="preview" style="display:none;"> 
     <input type="file" id="photo" accept="image/*">
   </div>
 
@@ -76,6 +85,41 @@
         alert("アップロードに失敗しました");
       }
     }
+
+   document.getElementById("photo").addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const img = document.getElementById("preview");
+    img.src = URL.createObjectURL(file);
+    img.style.display = "block";
+  });
+
+  async function upload() {
+    const fileInput = document.getElementById("photo");
+    if (!fileInput.files.length) {
+      alert("写真を選択してください");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("photo", fileInput.files[0]);
+
+    try {
+      const res = await fetch("http://localhost:3000/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      console.log(data);
+      alert("アップロード完了！（仮）");
+    } catch (err) {
+      console.error(err);
+      alert("アップロードに失敗しました");
+    }
+  }
+
   </script>
 </body>
 </html>

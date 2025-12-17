@@ -2,22 +2,22 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Album</title>
-  <link rel="stylesheet" href="album.css">
+  <title>Account</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h1>Album</h1>
+<body class="center">
+  <div class="phone">
+    <h1 class="title">Account</h1>
 
-  <div class="album">
-    <!-- 写真の代わりに文字リンク -->
-    <a href="detail.html?id=1">写真1を表示</a>
-    <a href="detail.html?id=2">写真2を表示</a>
-    <a href="detail.html?id=3">写真3を表示</a>
-    <a href="detail.html?id=4">写真4を表示</a>
+    <div class="setting-section">
+      <div class="setting-item">
+        <span>User Name</span>
+        <span class="setting-value">Guest</span>
+      </div>
+    </div>
+
+    <a href="setting.html" class="back-btn">Back</a>
   </div>
-
-
-  <a href="home.html" class="btn">Back</a>
 
   <script>
   const toggle = document.getElementById("darkToggle");
@@ -41,5 +41,3 @@
 
 </body>
 </html>
-
-

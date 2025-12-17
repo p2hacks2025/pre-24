@@ -431,3 +431,40 @@ body {
 .switch input:checked + .slider:before {
   transform: translateX(20px);
 }
+
+/* =========================
+   Dark Mode
+========================= */
+body.dark {
+  background: #111;
+}
+
+body.dark .phone {
+  background: #1c1c1e;
+  color: #fff;
+}
+
+body.dark .title {
+  color: #fff;
+}
+
+body.dark .setting-item {
+  background: #2c2c2e !important;
+  color: #fff;
+}
+
+body.dark .setting-value {
+  color: #aaa;
+}
+
+body.dark .back-btn,
+body.dark .login-btn {
+  background: #2c2c2e;
+  color: #fff;
+}
+
+body.dark .card,
+body.dark .journey-card {
+  background: #2c2c2e;
+  color: #fff;
+}

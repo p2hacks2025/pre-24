@@ -33,8 +33,10 @@ body {
 }
 
 .album a {
-  display: block;
-  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;       /* 正方形を維持 */
   background: #fdfdfd;
   border: 2px solid #ccc;
   border-radius: 8px;
@@ -55,7 +57,7 @@ body {
   margin: 30px auto;
   padding: 20px;
   width: 400px;         /* 横幅を固定 */
-  height: 400px;        /* 高さを固定 → 正方形に近い形 */
+  height: 400px;        /* 高さを固定 正方形 */
   background: #fff;
   border: 2px solid #ccc;
   border-radius: 10px;
@@ -78,3 +80,33 @@ body {
   text-align: left;
 
 }
+
+/* 左上の戻るボタン */
+.btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 8px 12px;
+  background-color: #3498db;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* 右上の小さめの四角(アルバム詳細) */
+.small-box {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #333;
+  border-radius: 6px;
+  background-color: #f0f0f0; /* 仮の背景色 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+

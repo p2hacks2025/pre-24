@@ -125,6 +125,9 @@ body {
 
   font-size: 20px;
   font-weight: bold;
+
+  text-decoration: none;
+  color: black;
 }
 
 .journey-card small {
@@ -189,3 +192,313 @@ body {
   text-decoration: underline;
 }
 
+/* =========================
+   Map
+========================= */
+
+.map-area {
+  width: 100%;
+  height: 360px;
+  margin-top: 20px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+
+
+/* 写真アップロードボタンのスタイル */
+.upload-btn {
+  display: block;
+  margin: 20px auto;   /* 中央寄せ */
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none; /* aタグでもボタン風に */
+}
+
+.upload-btn:hover {
+  background-color: #2980b9;
+/* =========================
+   Setting Screen
+========================= */
+
+.setting-section {
+  margin-top: 24px;
+}
+
+.setting-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+/* 設定項目 */
+.setting-item {
+  background: #f5f5f7;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+}
+
+/* 右側の値 */
+.setting-value {
+  color: #666;
+  font-size: 14px;
+}
+
+/* リンク項目 */
+.setting-item.link {
+  text-decoration: none;
+  color: #d00;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* タップ感 */
+.setting-item:active {
+  transform: scale(0.98);
+}
+
+/* =========================
+   Setting Scroll
+========================= */
+
+.setting-scroll {
+  overflow-y: auto;
+  max-height: 440px;
+  padding-right: 6px;
+}
+
+/* =========================
+   Toggle Switch (iOS style)
+========================= */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* スライダー */
+.slider {
+  position: absolute;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: 0.3s;
+}
+
+/* 丸 */
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+/* ON状態 */
+.switch input:checked + .slider {
+  background-color: #4cd964;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
+}
+}
+
+/* =========================
+   Setting Scroll
+========================= */
+.setting-scroll {
+  overflow-y: auto;
+  height: calc(640px - 140px);
+  padding-bottom: 20px;
+}
+
+/* =========================
+   Setting Sections
+========================= */
+.setting-section {
+  margin-top: 24px;
+}
+
+.setting-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+/* =========================
+   Setting Item
+========================= */
+.setting-item {
+  background: #f5f5f7;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+  color: #000;
+  text-decoration: none;
+}
+
+.setting-item:active {
+  transform: scale(0.98);
+}
+
+/* ログアウト */
+.setting-item.link {
+  color: #d00;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* 右側の値 */
+.setting-value {
+  font-size: 14px;
+  color: #666;
+}
+
+/* =========================
+   iOS Switch
+========================= */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: 0.3s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+  background-color: #4cd964;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* =========================
+   Dark Mode
+========================= */
+body.dark {
+  background: #111;
+}
+
+body.dark .phone {
+  background: #1c1c1e;
+  color: #fff;
+}
+
+body.dark .title {
+  color: #fff;
+}
+
+body.dark .setting-item {
+  background: #2c2c2e !important;
+  color: #fff;
+}
+
+body.dark .setting-value {
+  color: #aaa;
+}
+
+body.dark .back-btn,
+body.dark .login-btn {
+  background: #2c2c2e;
+  color: #fff;
+}
+
+body.dark .card,
+body.dark .journey-card {
+  background: #2c2c2e;
+  color: #fff;
+}
+
+/* =========================
+   Star Effect
+========================= */
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ダークモード時は星を少し明るく */
+body.dark .star {
+  opacity: 1;
+}

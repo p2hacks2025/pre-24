@@ -2,29 +2,29 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Home</title>
+  <title>About</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="center">
   <div class="phone">
+    <h1 class="title">About</h1>
 
-    <h1 class="title">Home</h1>
+    <div class="setting-section">
+      <div class="setting-item">
+        <span>Version</span>
+        <span class="setting-value">1.0.0</span>
+      </div>
 
-    <div class="zigzag">
-      <a href="journey.html" class="card left">
-        Journey
-      </a>
-
-      <a href="album.html" class="card right">
-        Album
-      </a>
-
-      <a href="setting.html" class="card left">
-        Setting
-      </a>
+      <div class="setting-item">
+        <span>Team</span>
+        <span class="setting-value">pre-24</span>
+      </div>
     </div>
 
-    <script>
+    <a href="setting.html" class="back-btn">Back</a>
+  </div>
+
+  <script>
   const toggle = document.getElementById("darkToggle");
 
   // ページ読み込み時：保存状態を復元
@@ -77,7 +77,5 @@
   });
 </script>
 
-
-  </div>
 </body>
 </html>

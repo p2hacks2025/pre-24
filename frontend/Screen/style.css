@@ -468,3 +468,37 @@ body.dark .journey-card {
   background: #2c2c2e;
   color: #fff;
 }
+
+/* =========================
+   Star Effect
+========================= */
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ダークモード時は星を少し明るく */
+body.dark .star {
+  opacity: 1;
+}

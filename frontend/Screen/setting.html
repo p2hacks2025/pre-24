@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="center">
+    <div class="stars" id="stars"></div>
+
   <div class="phone">
 
     <h1 class="title">Setting</h1>
@@ -42,7 +44,7 @@
         <div class="setting-item">
           <span>Star Effect</span>
           <label class="switch">
-            <input type="checkbox" checked>
+            <input type="checkbox" id="starToggle" checked>
             <span class="slider"></span>
           </label>
         </div>
@@ -98,6 +100,39 @@
     } else {
       document.body.classList.remove("dark");
       localStorage.setItem("darkMode", "off");
+    }
+  });
+
+  /* ===== Star Effect ===== */
+  const starToggle = document.getElementById("starToggle");
+  const stars = document.getElementById("stars");
+
+  // 星を生成
+  function createStars() {
+    stars.innerHTML = "";
+    for (let i = 0; i < 60; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.left = Math.random() * 100 + "%";
+      star.style.animationDelay = Math.random() * 3 + "s";
+      stars.appendChild(star);
+    }
+  }
+
+  // 保存状態復元
+  const starOn = localStorage.getItem("starEffect") !== "off";
+  starToggle.checked = starOn;
+  if (starOn) createStars();
+
+  // ON/OFF切り替え
+  starToggle.addEventListener("change", () => {
+    if (starToggle.checked) {
+      createStars();
+      localStorage.setItem("starEffect", "on");
+    } else {
+      stars.innerHTML = "";
+      localStorage.setItem("starEffect", "off");
     }
   });
 </script>

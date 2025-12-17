@@ -1,6 +1,13 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();//.envに置いたGoogle map APIキーを読む
+const multer = require("multer");
+
+// multer（保存しない設定）[門脇]
+const upload = multer({
+  storage: multer.memoryStorage()
+});
+
 
 
 // JSONを扱えるようにする[門脇]
@@ -115,6 +122,30 @@ app.post("/stars", (req, res) => {
 app.get("/stars", (req, res) => {
   res.json(starSigns);
 });
+
+// 写真アップロードAPI（保存なし・ダミーURL返却）[門脇]
+app.post("/upload", upload.single("photo"), (req, res) => {
+
+  // ファイルが送られていない場合
+  if (!req.file) {
+    return res.status(400).json({
+      error: "画像ファイルが送信されていません"
+    });
+  }
+
+  // ここまで来たら「画像は受け取れた」
+  console.log("受け取ったファイル名:", req.file.originalname);
+  console.log("ファイルサイズ:", req.file.size);
+
+  // ダミー画像URL
+  const dummyImageUrl = "https://example.com/dummy-image.jpg";
+
+  res.json({
+    message: "画像アップロード成功（保存はしていません）",
+    image_url: dummyImageUrl
+  });
+});
+
 
 const PORT = 3000;
 app.listen(PORT, () => {

@@ -1,42 +1,78 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Map</title>
-  <link rel="stylesheet" href="style.css">
-
+  <link rel="stylesheet" href="style.css" />
   <style>
+    body.center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f5f5f5;
+    }
+    .phone {
+      width: 390px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .title {
+      text-align: center;
+      margin-bottom: 12px;
+    }
     .map-area {
       width: 100%;
       height: 300px;
+      border-radius: 12px;
+      overflow: hidden;
     }
     #map {
       width: 100%;
       height: 100%;
     }
+    .upload-btn, .back-btn {
+      display: block;
+      margin: 12px auto 0;
+      text-align: center;
+      padding: 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #4f46e5;
+      color: #fff;
+    }
+    .back-btn {
+      background: #6b7280;
+    }
+    body.dark {
+      background: #111827;
+    }
+    body.dark .phone {
+      background: #1f2933;
+      color: #e5e7eb;
+    }
   </style>
 </head>
-
 <body class="center">
   <div class="phone">
-
     <h1 class="title" id="map-title">Map</h1>
 
     <!-- Google Map -->
     <div class="map-area">
       <div id="map"></div>
     </div>
-   
-    <!-- 写真アップロードボタン -->
+
+    <!-- Buttons -->
     <a href="photo upload.html" class="upload-btn">写真をアップロード</a>
     <a href="journey.html" class="back-btn">Back</a>
-
   </div>
 
-  <!-- 星座名表示 -->
+  <!-- 星座名取得 -->
   <script>
     const params = new URLSearchParams(location.search);
-    const name = params.get("name");
+    const name = params.get("name"); // aries / cancer など
 
     if (name) {
       document.getElementById("map-title").textContent =
@@ -47,7 +83,6 @@
   <!-- ダークモード -->
   <script>
     const toggle = document.getElementById("darkToggle");
-
     if (toggle) {
       const isDark = localStorage.getItem("darkMode") === "on";
       document.body.classList.toggle("dark", isDark);
@@ -65,20 +100,19 @@
     }
   </script>
 
-  <!-- Google Maps -->
+  <!-- Google Maps & API -->
   <script>
     let map;
 
     function loadGoogleMaps(apiKey) {
       const script = document.createElement("script");
-      script.src =
-        `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
       script.async = true;
       script.defer = true;
       document.head.appendChild(script);
     }
 
-    // APIキー取得
+    // Google Maps APIキー取得
     fetch("http://localhost:3000/maps")
       .then(res => res.json())
       .then(data => {
@@ -89,42 +123,53 @@
       });
 
     function initMap() {
-      // 現在地が取れなかった場合の保険（函館）
-      const fallback = { lat: 41.768793, lng: 140.72881 };
+      const fallback = { lat: 41.768793, lng: 140.72881 }; // 函館
 
       map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 15,
+        zoom: 14,
         center: fallback
       });
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const current = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-
-            map.setCenter(current);
-
-            new google.maps.Marker({
-              position: current,
-              map,
-              title: "現在地"
+      // ===== 星座別ピン =====
+      if (name) {
+        fetch(`http://localhost:3000/map/${name.toLowerCase()}`)
+          .then(res => {
+            if (!res.ok) throw new Error("星座が見つかりません");
+            return res.json();
+          })
+          .then(pins => {
+            pins.forEach(pin => {
+              new google.maps.Marker({
+                position: { lat: pin.lat, lng: pin.lng },
+                map,
+                title: pin.title
+              });
             });
-          },
-          (error) => {
-            console.error("現在地取得失敗", error);
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-          }
-        );
+          })
+          .catch(err => console.error(err));
+      }
+
+      // ===== 現在地 =====
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          const current = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+          };
+
+          map.setCenter(current);
+
+          new google.maps.Marker({
+            position: current,
+            map,
+            title: "現在地",
+            icon: {
+              url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+            }
+          });
+        });
       }
     }
   </script>
-
 </body>
 </html>

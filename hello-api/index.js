@@ -2,6 +2,7 @@ require("dotenv").config({
   path: __dirname + "/.env"
 });
 
+const multer = require("multer");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -11,6 +12,20 @@ const app = express();
 /* ===== ミドルウェア ===== */
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads")); //画像表示
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {  //写真アップロード時 → 自動でuploadsの空フォルダに画像が入る
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + "_" + file.originalname;
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({ storage });
 
 // ★ これが無いとHTMLが表示されない
 app.use(express.static(
@@ -109,6 +124,20 @@ app.post("/stars", (req, res) => {
 app.get("/stars", (req, res) => {
   res.json(starSigns);
 });
+
+//写真保存
+app.post("/upload", upload.single("photo"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "ファイルがありません" });
+  }
+
+  res.json({
+    message: "アップロード成功",
+    filename: req.file.filename,
+    path: `/uploads/${req.file.filename}`
+  });
+});
+
 
 /* ===== 起動 ===== */
 const PORT = 3000;

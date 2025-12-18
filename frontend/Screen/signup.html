@@ -45,6 +45,37 @@
       localStorage.setItem("darkMode", "off");
     }
   });
+
+    document.addEventListener("click", (e) => {
+      const starEnabled = localStorage.getItem("starEffect") !== "off";
+      if (!starEnabled) return;
+
+      const count = 12;
+
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement("div");
+        star.className = "star-particle";
+
+        star.style.left = e.clientX + "px";
+        star.style.top = e.clientY + "px";
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 30 + Math.random() * 30;
+
+        star.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
+        star.style.setProperty("--dy", `${Math.sin(angle) * distance}px`);
+
+        document.body.appendChild(star);
+
+        setTimeout(() => {
+          star.remove();
+        }, 700);
+      }
+    });
+  </script>
+</body>
+</html>
+
 </script>
 
 </body>

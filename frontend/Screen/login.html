@@ -11,18 +11,17 @@
     <h1 class="title">Login</h1>
     <h1 class="title">Journey App</h1>
 
-
     <div class="login-area">
       <p class="signup-link">
-  アカウントをお持ちでない方は
-  <a href="signup.html">新規登録</a>
-</p>
+        アカウントをお持ちでない方は
+        <a href="signup.html">新規登録</a>
+      </p>
 
       <input id="username" type="text" placeholder="User Name">
       <input id="password" type="password" placeholder="Password">
 
-      <!-- 仮ログイン -->
-      <a href="home.html" class="login-btn">LOGIN</a>
+      <!-- ログイン -->
+      <button class="login-btn" onclick="login()">LOGIN</button>
     </div>
 
   </div>
@@ -49,7 +48,6 @@
         if (res.ok) {
           localStorage.setItem("user_id", data.user_id);
           localStorage.setItem("username", data.username);
-
           location.href = "home.html";
         } else {
           alert(data.error);
@@ -58,6 +56,29 @@
         alert("サーバーに接続できません");
       }
     }
+
+    // タップ時スターエフェクト
+    document.addEventListener("click", (e) => {
+      const starEnabled = localStorage.getItem("starEffect") !== "off";
+      if (!starEnabled) return;
+
+      for (let i = 0; i < 12; i++) {
+        const star = document.createElement("div");
+        star.className = "star-particle";
+
+        star.style.left = e.clientX + "px";
+        star.style.top = e.clientY + "px";
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 30 + Math.random() * 30;
+
+        star.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
+        star.style.setProperty("--dy", `${Math.sin(angle) * distance}px`);
+
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), 700);
+      }
+    });
   </script>
 </body>
 </html>

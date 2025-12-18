@@ -79,6 +79,11 @@
 
         const data = await res.json();
         console.log(data);
+
+        const img = document.getElementById("preview");
+        img.src = "http://localhost:3000" + data.path;
+        img.style.display = "block";
+
         alert("アップロード完了！（仮）");
       } catch (err) {
         console.error(err);

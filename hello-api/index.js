@@ -143,6 +143,9 @@ app.post("/upload", upload.single("photo"), (req, res) => {
 
 
 /* ===== 起動 ===== */
+
+console.log("index.js loaded");
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

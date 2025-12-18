@@ -43,12 +43,8 @@
       background: #4f46e5;
       color: #fff;
     }
-    .back-btn {
-      background: #6b7280;
-    }
-    body.dark {
-      background: #111827;
-    }
+    .back-btn { background: #6b7280; }
+    body.dark { background: #111827; }
     body.dark .phone {
       background: #1f2933;
       color: #e5e7eb;
@@ -59,49 +55,39 @@
   <div class="phone">
     <h1 class="title" id="map-title">Map</h1>
 
-    <!-- Google Map -->
     <div class="map-area">
       <div id="map"></div>
     </div>
 
-    <!-- Buttons -->
     <a href="photo upload.html" class="upload-btn">写真をアップロード</a>
     <a href="journey.html" class="back-btn">Back</a>
   </div>
 
-  <!-- 星座名取得 -->
   <script>
-    const params = new URLSearchParams(location.search);
-    const name = params.get("name"); // aries / cancer など
-
-    if (name) {
-      document.getElementById("map-title").textContent =
-        name.toUpperCase() + " Map";
+    // ===== URLパラメータ =====
+    function getStarName() {
+      const params = new URLSearchParams(location.search);
+      return params.get("name");
     }
-  </script>
 
-  <!-- ダークモード -->
-  <script>
+    const starName = getStarName();
+    if (starName) {
+      document.getElementById("map-title").textContent = starName.toUpperCase() + " Map";
+    }
+
+    // ===== ダークモード =====
     const toggle = document.getElementById("darkToggle");
     if (toggle) {
       const isDark = localStorage.getItem("darkMode") === "on";
       document.body.classList.toggle("dark", isDark);
       toggle.checked = isDark;
-
       toggle.addEventListener("change", () => {
-        if (toggle.checked) {
-          document.body.classList.add("dark");
-          localStorage.setItem("darkMode", "on");
-        } else {
-          document.body.classList.remove("dark");
-          localStorage.setItem("darkMode", "off");
-        }
+        document.body.classList.toggle("dark", toggle.checked);
+        localStorage.setItem("darkMode", toggle.checked ? "on" : "off");
       });
     }
-  </script>
 
-  <!-- Google Maps & API -->
-  <script>
+    // ===== Google Maps 読み込み =====
     let map;
 
     function loadGoogleMaps(apiKey) {
@@ -112,32 +98,30 @@
       document.head.appendChild(script);
     }
 
-    // Google Maps APIキー取得
     fetch("http://localhost:3000/maps")
       .then(res => res.json())
-      .then(data => {
-        loadGoogleMaps(data.apiKey);
-      })
-      .catch(err => {
-        console.error("APIキー取得失敗", err);
-      });
+      .then(data => loadGoogleMaps(data.apiKey))
+      .catch(err => console.error("APIキー取得失敗", err));
 
+    // ===== Map 初期化 =====
     function initMap() {
       const fallback = { lat: 41.768793, lng: 140.72881 }; // 函館
 
       map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 14,
+        zoom: 13,
         center: fallback
       });
 
-      // ===== 星座別ピン =====
+      // ===== 星座ピン =====
+      const name = getStarName();
       if (name) {
         fetch(`http://localhost:3000/map/${name.toLowerCase()}`)
-          .then(res => {
-            if (!res.ok) throw new Error("星座が見つかりません");
-            return res.json();
-          })
+          .then(res => res.json())
           .then(pins => {
+            console.log("pins:", pins);
+            if (pins.length > 0) {
+              map.setCenter({ lat: pins[0].lat, lng: pins[0].lng });
+            }
             pins.forEach(pin => {
               new google.maps.Marker({
                 position: { lat: pin.lat, lng: pin.lng },
@@ -146,7 +130,7 @@
               });
             });
           })
-          .catch(err => console.error(err));
+          .catch(err => console.error("星座ピン取得失敗", err));
       }
 
       // ===== 現在地 =====
@@ -157,15 +141,11 @@
             lng: pos.coords.longitude
           };
 
-          map.setCenter(current);
-
           new google.maps.Marker({
             position: current,
             map,
             title: "現在地",
-            icon: {
-              url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-            }
+            icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
           });
         });
       }

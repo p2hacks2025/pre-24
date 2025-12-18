@@ -13,12 +13,14 @@ body {
 
 .phone {
   width: 100%;
-  max-width: 390px;   /* iPhone基準 */
-  height: 100dvh;     /* スマホの実高さ */
+  max-width: 390px;
+  min-height: 100dvh;   
   background: white;
   border-radius: 20px;
   padding: 24px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -275,11 +277,10 @@ body {
 /* =========================
    Setting Scroll
 ========================= */
-
 .setting-scroll {
   overflow-y: auto;
-  max-height: 440px;
-  padding-right: 6px;
+  flex: 1;
+  padding-bottom: 20px;
 }
 
 /* =========================

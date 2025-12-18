@@ -41,12 +41,49 @@ let nextUserID = 1;
 
 /* ===== API ===== */
 
-// 地図ピン
-app.get("/map", (req, res) => {
-  res.json([
-    { lat: 35.681236, lng: 139.767125, title: "東京駅" },
-    { lat: 35.689592, lng: 139.700413, title: "新宿" }
-  ]);
+/*地図ピン
+牡羊座（４か所）：五稜郭タワー、キャンバス、千代台公園、昭和公園
+かに座（５か所）：函館駅、トランジスタカフェ、函館公園、函館八幡宮、住三吉神社
+*/
+// app.get("/map", (req, res) => {
+//   res.json([
+//     { lat: 41.79470986501921, lng: 140.75401999577832, title: "五稜郭タワー" },
+//     { lat: 41.788607340877235, lng: 140.7533117029856, title: "キャンバス" },
+//     { lat: 41.78594661256195, lng: 140.7459269137736, title: "千代台公園" },
+//     { lat: 41.81513784377538, lng: 140.72646217529504, title: "昭和公園" },
+//     { lat: 41.77381185030415, lng: 140.72645862587342, title: "函館駅" },
+//     { lat: 41.76224261619561, lng: 140.71720025344823, title: "トランジスタカフェ" },
+//     { lat: 41.75640659598397, lng: 140.71582306694003, title: "函館公園" },
+//     { lat: 41.75406576460119, lng: 140.70987519962205, title: "八幡宮" },
+//     { lat: 41.749027741981855, lng: 140.7160248132717, title: "住三吉神社" }
+    
+//   ]);
+// });
+const mapPins = {
+  aries:[ //牡羊座
+    {lat: 41.79470986501921, lng: 140.75401999577832, title: "五稜郭タワー"},
+    {lat: 41.788607340877235, lng: 140.7533117029856, title: "キャンバス"},
+    {lat: 41.78594661256195, lng: 140.7459269137736, title: "千代台公園"},
+    {lat: 41.81513784377538, lng: 140.72646217529504, title: "昭和公園"}
+  ],
+  cancer:[
+    {lat: 41.77381185030415, lng: 140.72645862587342, title: "函館駅"},
+    {lat: 41.76224261619561, lng: 140.71720025344823, title: "トランジスタカフェ"},
+    {lat: 41.75640659598397, lng: 140.71582306694003, title: "函館公園"},
+    {lat: 41.75406576460119, lng: 140.70987519962205, title: "八幡宮"},
+    {lat: 41.749027741981855, lng: 140.7160248132717, title: "住三吉神社"}
+  ]
+};
+app.get("/map/:starsign", (req,res) => {
+  const {starsign} = req.params;
+
+  const pins = mapPins[starsign];
+
+  if(!pins){
+    return res.status(404).json({error: "対応する星座がありません"});
+  }
+
+  res.json(pins);
 });
 
 // 動作確認
@@ -64,9 +101,9 @@ app.get("/maps", (req, res) => {
 
 // ユーザー登録
 app.post("/users", (req, res) => {
-  const { username, email, password } = req.body;
+  const {username, email, password} = req.body;
 
-  if (!username || !email || !password) {
+  if(!username || !email || !password) {
     return res.status(400).json({ error: "必要な項目が不足しています" });
   }
 
@@ -83,13 +120,13 @@ app.post("/users", (req, res) => {
 
 // ログイン
 app.post("/login", (req, res) => {
-  const { username, password } = req.body;
+  const {username, password} = req.body;
 
   const user = users.find(
     u => u.username === username && u.password === password
   );
 
-  if (!user) {
+  if(!user) {
     return res.status(401).json({ error: "ログイン失敗" });
   }
 
@@ -102,9 +139,9 @@ app.post("/login", (req, res) => {
 
 // 星座保存
 app.post("/stars", (req, res) => {
-  const { user_id, star_name, start_date, end_date } = req.body;
+  const {user_id, star_name, start_date, end_date} = req.body;
 
-  if (!user_id || !star_name || !start_date || !end_date) {
+  if(!user_id || !star_name || !start_date || !end_date) {
     return res.status(400).json({ error: "必要な項目が不足しています" });
   }
 
@@ -130,7 +167,7 @@ app.post("/upload", upload.single("photo"), (req, res) => {
   console.log("upload API called");
   console.log(req.file);
 
-  if (!req.file) {
+  if(!req.file) {
     return res.status(400).json({ error: "ファイルがありません" });
   }
 

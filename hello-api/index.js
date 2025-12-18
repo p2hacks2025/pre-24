@@ -12,12 +12,12 @@ const app = express();
 /* ===== ミドルウェア ===== */
 app.use(cors());
 app.use(express.json());
-app.use("/uploads", express.static("uploads")); //画像表示
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); //画像表示
 
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {  //写真アップロード時 → 自動でuploadsの空フォルダに画像が入る
-    cb(null, "uploads/");
+   cb(null, path.join(__dirname, "uploads"));
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + "_" + file.originalname;
@@ -127,6 +127,9 @@ app.get("/stars", (req, res) => {
 
 //写真保存
 app.post("/upload", upload.single("photo"), (req, res) => {
+  console.log("upload API called");
+  console.log(req.file);
+
   if (!req.file) {
     return res.status(400).json({ error: "ファイルがありません" });
   }

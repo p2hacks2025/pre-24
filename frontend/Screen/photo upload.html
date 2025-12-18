@@ -95,31 +95,6 @@
     img.style.display = "block";
   });
 
-  async function upload() {
-    const fileInput = document.getElementById("photo");
-    if (!fileInput.files.length) {
-      alert("写真を選択してください");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("photo", fileInput.files[0]);
-
-    try {
-      const res = await fetch("http://localhost:3000/upload", {
-        method: "POST",
-        body: formData
-      });
-
-      const data = await res.json();
-      console.log(data);
-      alert("アップロード完了！（仮）");
-    } catch (err) {
-      console.error(err);
-      alert("アップロードに失敗しました");
-    }
-  }
-
   </script>
 </body>
 </html>

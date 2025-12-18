@@ -79,13 +79,22 @@
 
         const data = await res.json();
         console.log(data);
+
+        const img = document.getElementById("preview");
+
+        img.src = "http://localhost:3000" + data.path;
+        img.style.display = "block";
+
+        fileInput.value = "";
+
         alert("アップロード完了！（仮）");
       } catch (err) {
         console.error(err);
         alert("アップロードに失敗しました");
       }
     }
-
+    
+  //ローカルプレビュー
    document.getElementById("photo").addEventListener("change", function () {
     const file = this.files[0];
     if (!file) return;

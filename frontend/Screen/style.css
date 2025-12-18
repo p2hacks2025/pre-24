@@ -332,15 +332,6 @@ body {
 }
 
 /* =========================
-   Setting Scroll
-========================= */
-.setting-scroll {
-  overflow-y: auto;
-  height: calc(640px - 140px);
-  padding-bottom: 20px;
-}
-
-/* =========================
    Setting Sections
 ========================= */
 .setting-section {

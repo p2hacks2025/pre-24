@@ -8,12 +8,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100dvh;
 }
 
 .phone {
-  width: 360px;
-  height: 640px;
+  width: 100%;
+  max-width: 390px;   /* iPhone基準 */
+  height: 100dvh;     /* スマホの実高さ */
   background: white;
   border-radius: 20px;
   padding: 24px;
@@ -222,6 +223,7 @@ body {
 
 .upload-btn:hover {
   background-color: #2980b9;
+}
 /* =========================
    Setting Screen
 ========================= */
@@ -326,7 +328,6 @@ body {
 
 .switch input:checked + .slider::before {
   transform: translateX(20px);
-}
 }
 
 /* =========================

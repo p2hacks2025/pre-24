@@ -3,43 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <title>Album</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="album.css">
 </head>
-<body>
-  <h1>Album</h1>
 
-  <div class="album">
-    <!-- 写真の代わりに文字リンク -->
-    <a href="detail.html?id=1">写真1を表示</a>
-    <a href="detail.html?id=2">写真2を表示</a>
-    <a href="detail.html?id=3">写真3を表示</a>
-    <a href="detail.html?id=4">写真4を表示</a>
+<body class="center">
+  <div class="stars" id="stars"></div>
+
+  <div class="phone">
+    <h1 class="title">Album</h1>
+
+    <!-- Journeyと同じ星座カード -->
+    <div class="journey-list">
+
+      <a href="detail.html?id=aries" class="journey-card">
+        牡羊座<br><small>Aries</small>
+      </a>
+
+      <a href="detail.html?id=taurus" class="journey-card">
+        牡牛座<br><small>Taurus</small>
+      </a>
+
+      <a href="detail.html?id=gemini" class="journey-card">
+        双子座<br><small>Gemini</small>
+      </a>
+
+      <a href="detail.html?id=cancer" class="journey-card">
+        蟹座<br><small>Cancer</small>
+      </a>
+
+      <a href="detail.html?id=leo" class="journey-card">
+        獅子座<br><small>Leo</small>
+      </a>
+
+      <a href="detail.html?id=virgo" class="journey-card">
+        乙女座<br><small>Virgo</small>
+      </a>
+
+      <a href="detail.html?id=libra" class="journey-card">
+        天秤座<br><small>Libra</small>
+      </a>
+
+      <a href="detail.html?id=scorpio" class="journey-card">
+        蠍座<br><small>Scorpio</small>
+      </a>
+
+      <a href="detail.html?id=sagittarius" class="journey-card">
+        射手座<br><small>Sagittarius</small>
+      </a>
+
+      <a href="detail.html?id=capricorn" class="journey-card">
+        山羊座<br><small>Capricorn</small>
+      </a>
+
+      <a href="detail.html?id=aquarius" class="journey-card">
+        水瓶座<br><small>Aquarius</small>
+      </a>
+
+      <a href="detail.html?id=pisces" class="journey-card">
+        魚座<br><small>Pisces</small>
+      </a>
+
+    </div>
+
+    <a href="home.html" class="btn home">Home</a>
   </div>
 
-
-  <a href="home.html" class="btn">Back</a>
-
-  <script>
-  const toggle = document.getElementById("darkToggle");
-
-  // ページ読み込み時：保存状態を復元
-  const isDark = localStorage.getItem("darkMode") === "on";
-  document.body.classList.toggle("dark", isDark);
-  toggle.checked = isDark;
-
-  // トグル変更時：保存
-  toggle.addEventListener("change", () => {
-    if (toggle.checked) {
-      document.body.classList.add("dark");
-      localStorage.setItem("darkMode", "on");
-    } else {
-      document.body.classList.remove("dark");
-      localStorage.setItem("darkMode", "off");
-    }
-  });
-</script>
-
+  <script src="stars.js"></script>
 </body>
 </html>
-
-

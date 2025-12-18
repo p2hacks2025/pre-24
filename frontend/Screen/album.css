@@ -1,57 +1,76 @@
-body {
-  font-family: sans-serif;
-  text-align: center;
-  /*background: url("images/book-background.jpg") no-repeat center center fixed;
-  background-size: cover; /* 背景に本の画像を敷く */
-  background: linear-gradient(to bottom, #001a4d, #0066cc, #001a4d); /*背景の本の画像の代わり（本の画像は今はまだ作ってない）*/
-  color: white;
-  position: relative;
-
-}
-
-/*body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(white 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.7;
-}
-*/
-  /*星のつもりの白い点。ノートみたいになったので保留中*/
-
-
-.album {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2列×2行で4枚配置 */
-  gap: 20px;
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.8); /* 半透明で本の上に紙ページ風 */
-  border-radius: 10px;
-}
-
-.album a {
+body.center {
+  margin: 0;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  aspect-ratio: 1 / 1;       /* 正方形を維持 */
-  background: #fdfdfd;
-  border: 2px solid #ccc;
-  border-radius: 8px;
+  align-items: center;
+  background: radial-gradient(circle at top, #0a0f2c, #000);
+  color: white;
+  font-family: "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.phone {
+  width: 360px;
+  min-height: 640px;
+  background: rgba(20, 20, 40, 0.85);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.journey-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.journey-card {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 18px 10px;
+  text-align: center;
+  color: white;
   text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  transition: transform 0.2s ease;
+  font-size: 16px;
+  transition: transform 0.2s, background 0.2s;
 }
 
-.album a:hover {
-  transform: scale(1.05);
-  background: #fffbe6; /* ホバーで少し色を変える */
+.journey-card small {
+  opacity: 0.7;
+  font-size: 12px;
 }
 
+.journey-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.25);
+}
 
+.back-btn {
+  display: block;
+  margin: 25px auto 0;
+  width: 120px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  text-decoration: none;
+}
 /* 写真枠 （アルバム詳細画面）*/
 #photo-detail {
   margin: 30px auto;
@@ -82,7 +101,7 @@ body {
 }
 
 /* 左上の戻るボタン */
-.btn {
+.btn.home {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -112,5 +131,3 @@ body {
   object-fit: cover;
   display: block;
 }
-
-

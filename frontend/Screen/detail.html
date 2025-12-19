@@ -50,55 +50,49 @@
   </div>
 
   <script>
-    // URLパラメータから星座名を取得
-    const params = new URLSearchParams(window.location.search);
-    const starName = params.get("id"); // album.html の ?id=aries など
+  // URLパラメータから星座名を取得
+  const params = new URLSearchParams(window.location.search);
+  const starName = params.get("star");
 
-    /*
-    // 元の仮データ表示（必要なら残す）
-    const photos = {
-      1: { desc: "写真1の詳細を表示中" },
-      2: { desc: "写真2の詳細を表示中" },
-      3: { desc: "写真3の詳細を表示中" }
-    };
+  console.log("starName =", starName);
 
-    // 仮データ表示
-    if (photos[starName]) {
-      document.getElementById("photo-detail").innerHTML = `<p>${photos[starName].desc}</p>`;
-    } else {
-      document.getElementById("photo-detail").innerHTML = "<p>写真が見つかりません</p>";
-    }
-    */
-    
+  // ===== サーバーから星座フォルダ内の写真を取得して表示 =====
+  async function loadAlbum() {
+    try {
+      // ★ APIは /images?star=○○
+      const res = await fetch(`http://localhost:3000/images?star=${starName}`);
+      const images = await res.json();
 
-    // ===== サーバーから星座フォルダ内の写真を取得して表示 =====
-    async function loadAlbum() {
-      try {
-        const res = await fetch(`http://localhost:3000/photos/${starName}`);
-        const images = await res.json();
+      const container = document.getElementById("album-container");
+      container.innerHTML = ""; // 既存内容クリア
 
-        const container = document.getElementById("album-container");
-        container.innerHTML = ""; // 既存内容クリア
-
-        if (images.length === 0) {
-          container.innerHTML = "<p>まだ写真がありません</p>";
-          return;
-        }
-
-        images.forEach(src => {
-          const img = document.createElement("img");
-          img.src = "http://localhost:3000" + imgData.path;
-          img.style.width = "150px";
-          img.style.margin = "10px";
-          container.appendChild(img);
-        });
-      } catch (err) {
-        console.error(err);
-        document.getElementById("album-container").innerHTML = "<p>読み込みに失敗しました</p>";
+      if (!starName) {
+        container.innerHTML = "<p>星座が指定されていません</p>";
+        return;
       }
-    }
 
-    loadAlbum();
-  </script>
+      if (images.length === 0) {
+        container.innerHTML = "<p>まだ写真がありません</p>";
+        return;
+      }
+
+      images.forEach(src => {
+        const img = document.createElement("img");
+        // ★ src は "/uploads/aries/xxx.jpg" なのでそのまま使う
+        img.src = `http://localhost:3000${src}`;
+        img.style.width = "150px";
+        img.style.margin = "10px";
+        container.appendChild(img);
+      });
+    } catch (err) {
+      console.error(err);
+      document.getElementById("album-container").innerHTML =
+        "<p>読み込みに失敗しました</p>";
+    }
+  }
+
+  loadAlbum();
+</script>
+
 </body>
 </html>

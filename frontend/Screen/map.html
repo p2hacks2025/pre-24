@@ -61,7 +61,7 @@
       <div id="map"></div>
     </div>
 
-    <a href="photo upload.html" class="upload-btn">写真をアップロード</a>
+    <a id="upload-link" class="upload-btn">写真をアップロード</a>
     <a href="journey.html" class="back-btn">Back</a>
   </div>
 
@@ -73,6 +73,15 @@
     }
 
     const starName = getStarName();
+
+     // アップロードリンクにパラメータを付与
+     const uploadLink = document.getElementById("upload-link");
+     if (starName) {
+      uploadLink.href = `photo upload.html?name=${starName}`;
+     } else {
+       uploadLink.href = `photo upload.html`; // starName がない場合
+     }
+
     if (starName) {
       document.getElementById("map-title").textContent = starName.toUpperCase() + " Map";
     }

@@ -5,7 +5,32 @@
   <title>Photo Detail</title>
   <link rel="stylesheet" href="album.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    /* album-container 内の写真を横並びにする */
+    #album-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px auto;
+      max-width: 800px;
+    }
+
+    #album-container img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin: 10px;
+      border-radius: 8px;
+      border: 2px solid #ccc;
+      transition: transform 0.2s;
+    }
+
+    #album-container img:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
+
 <body>
   <h1>Photo Detail</h1>
 
@@ -21,6 +46,7 @@
 
   <a href="album.html" class="btn">Back to Album</a>
   <div class="small-box">
+  <img src="images/album_detail_ex4.png" alt="アルバム詳細画像">
     <img src="images/album_detail_ex2.png" alt="アルバム詳細画像">
   </div>
 
@@ -29,6 +55,7 @@
     const params = new URLSearchParams(window.location.search);
     const starName = params.get("id"); // album.html の ?id=aries など
 
+    /*
     // 元の仮データ表示（必要なら残す）
     const photos = {
       1: { desc: "写真1の詳細を表示中" },
@@ -42,11 +69,13 @@
     } else {
       document.getElementById("photo-detail").innerHTML = "<p>写真が見つかりません</p>";
     }
+    */
+    
 
     // ===== サーバーから星座フォルダ内の写真を取得して表示 =====
     async function loadAlbum() {
       try {
-        const res = await fetch(`http://localhost:3000/albums/${starName}`);
+        const res = await fetch(`http://localhost:3000/photos/${starName}`);
         const images = await res.json();
 
         const container = document.getElementById("album-container");
@@ -59,13 +88,14 @@
 
         images.forEach(src => {
           const img = document.createElement("img");
-          img.src = "http://localhost:3000" + src;
+          img.src = "http://localhost:3000" + imgData.path;
           img.style.width = "150px";
           img.style.margin = "10px";
           container.appendChild(img);
         });
       } catch (err) {
         console.error(err);
+        document.getElementById("album-container").innerHTML = "<p>読み込みに失敗しました</p>";
       }
     }
 

@@ -75,12 +75,7 @@
 
       const formData = new FormData();
       formData.append("photo", fileInput.files[0]);
-
-      //星座情報を追加
-      if (starName) {
-        formData.append("star", starName);
-      }
-
+      formData.append("star", starName);
 
       try {
         const res = await fetch("http://localhost:3000/upload", {

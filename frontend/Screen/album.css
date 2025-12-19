@@ -93,7 +93,7 @@ body.center {
   justify-content: center;
 }
 
-/* アルバム詳細の小枠 */
+/* アルバム詳細の小枠（通常） */
 .small-box {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -123,30 +123,100 @@ body.center {
   border-radius: 8px;
 }
 
-/* 戻るボタン */
-.btn.home {
-  margin: 20px auto 0;
-  display: block;
-  width: fit-content;
-}
-
-/* 画像共通 */
+/* 共通画像 */
 img {
   max-width: 100%;
   height: auto;
 }
 
+/* =========================
+   右上固定サムネイル
+========================= */
 
-/* 右上にあった画像を画面固定にする */
-.small-box {
-  position: fixed;
+.phone {
+  position: relative;
+}
+
+.fixed-thumb {
+  position: absolute;
   top: 10px;
   right: 10px;
 
   width: 90px;
   height: 90px;
 
-  z-index: 1000;
+  border: 2px solid #333;
+  border-radius: 6px;
+  overflow: hidden;
+
+  z-index: 10;
 }
 
+.fixed-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =========================
+   Detailページ用リセット
+========================= */
+
+/* Detail内のimgはstyle.cssの影響を受けない */
+.phone img {
+  max-width: none;
+}
+
+/* ボタンの見た目をDetail用に戻す */
+.phone .btn {
+  background: none;
+  padding: 0;
+}
+
+/* card系の影響を無効化 */
+.phone .card,
+.phone .journey-card {
+  all: unset;
+}
+
+/* =========================
+   Detail UI 調整（最終）
+========================= */
+
+#photo-detail,
+#comment-frame {
+  width: 100%;
+  margin: 16px 0;
+  padding: 16px;
+
+  border-radius: 20px;
+  background: rgba(255,255,255,0.12);
+  color: white;
+}
+
+
+/* =========================
+   Detail専用 phone 上書き
+========================= */
+
+.detail-phone {
+  width: 360px;
+  min-height: 640px;
+  background: rgba(20, 20, 40, 0.85);
+  border-radius: 24px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  box-sizing: border-box;
+}
+
+/*Photo Datail*/
+.phone h1 {
+  margin-top: 60px;
+  padding-right: 110px;
+  text-align: center;
+}
 

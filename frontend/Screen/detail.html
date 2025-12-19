@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Photo Detail</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="album.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
     /* album-container 内の写真を横並びにする */
     #album-container {
@@ -32,6 +34,8 @@
 </head>
 
 <body>
+   <div class="center">
+    <div class="phone detail-phone">
   <h1>Photo Detail</h1>
 
   <!-- 元の仮の写真詳細 -->
@@ -41,13 +45,15 @@
   <div class="album-container" id="album-container"></div>
 
   <div id="comment-frame">
-    <p>ここにコメントが入ります（仮）</p>
+    <p>コメント</p>
   </div>
 
   <a href="album.html" class="btn">Back to Album</a>
-  <div class="small-box">
+  
+  <div class="fixed-thumb">
   <img src="images/album_detail_ex4.png" alt="アルバム詳細画像">
-  </div>
+</div>
+
 
   <script>
   // URLパラメータから星座名を取得
@@ -87,12 +93,13 @@
     } catch (err) {
       console.error(err);
       document.getElementById("album-container").innerHTML =
-        "<p>読み込みに失敗しました</p>";
+        "<p>写真がありません</p>";
     }
   }
 
   loadAlbum();
 </script>
-
+ </div>
+  </div>
 </body>
 </html>

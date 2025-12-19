@@ -78,7 +78,7 @@
       formData.append("star", starName);
 
       try {
-        const res = await fetch("http://localhost:3000/upload", {
+        const res = await fetch("http://localhost:3000/upload?star=aries", {
           method: "POST",
           body: formData
         });

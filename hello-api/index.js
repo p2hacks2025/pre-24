@@ -17,7 +17,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"))); //画像�
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const star = req.body.star || "default";
+    const star = req.query.star || "default";
     const dir = path.join(__dirname, "uploads", star);
     fs.mkdirSync(dir, { recursive: true }); // フォルダなければ作る
     cb(null, dir);
@@ -149,15 +149,20 @@ app.post("/stars", (req, res) => {
 //写真保存
 app.post("/upload", upload.single("photo"), (req, res) => {
   console.log("upload API called");
+
+  //★ 動作確認用
+  console.log("query.star =", req.query.star);
+  console.log("body.star =", req.body.star);
   console.log(req.file);
+
 
   if(!req.file) {
     return res.status(400).json({ error: "ファイルがありません" });
   }
 
   const star = req.body.star || "default";
-  const filePath = `/uploads/${star}/${req.file.filename}`; // 星座フォルダ込み
 
+  const filePath = `/uploads/${star}/${req.file.filename}`; // 星座フォルダ込み
 
   res.json({
     message: "アップロード成功",

@@ -45,7 +45,14 @@
   <div class="album-container" id="album-container"></div>
 
   <div id="comment-frame">
-    <p>コメント</p>
+    <h3>コメント</h3>
+    <textarea
+      id="comment-text"
+      placeholder="コメント"
+      rows="5"
+      style="width:100%;"
+    ></textarea>
+    <button id = "save-comment">保存</button>
   </div>
 
   <a href="album.html" class="btn">Back to Album</a>
@@ -103,6 +110,33 @@ photoDetail.innerHTML = ""; // 中を空にする
   }
 
   loadAlbum();
+
+  // コメントの追加
+  async function loadComment() {
+    const res = await fetch(
+      `http://localhost:3000/albums/${starName}/comment`
+    );
+    const data = await res.json();
+    document.getElementById("comment-text").value = data.content;
+  }
+
+  document
+    .getElementById("save-comment")
+    .addEventListener("click", async () => {
+      const content = document.getElementById("comment-text").value;
+      await fetch(
+        `http://localhost:3000/albums/${starName}/comment`,
+        {
+          method: "PUT",
+          headers:{
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({content})
+        }
+      );
+      alert("コメントを保存しました");
+    });
+  loadComment();
 </script>
  </div>
   </div>

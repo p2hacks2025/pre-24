@@ -8,6 +8,7 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const app = express();
+const FILE = path.join(__dirname, "albumComments.json");
 
 /* ===== ミドルウェア ===== */
 app.use(cors());
@@ -42,7 +43,17 @@ let nextStarSignID = 1;
 const users = [];
 let nextUserID = 1;
 
-const albumComments = [];
+let albumComments = [];
+
+if(fs.existsSync(FILE)){
+  try{
+    albumComments = JSON.parse(fs.readFileSync(FILE, "utf-8"));
+  }
+  catch(err){
+    console.error("albumComments.jsonの読み込みに失敗しました", err);
+    albumComments = [];
+  }
+}
 
 /* ===== API ===== */
 
@@ -259,7 +270,7 @@ app.put("/albums/:star/comment", (req, res) => {
   const existing = albumComments.find(c => c.star === star);
 
   if(existing){
-    existing.content = conntent ?? "";
+    existing.content = content ?? "";
     existing.updated_at = new Date().toISOString();
   }
   else{
@@ -269,6 +280,7 @@ app.put("/albums/:star/comment", (req, res) => {
       updated_at: new Date().toISOString()
     });
   }
+  fs.writeFileSync(FILE, JSON.stringify(albumComments, null, 2));
 
   res.json({message: "コメントを保存しました"})
 })

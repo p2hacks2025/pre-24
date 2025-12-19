@@ -6,7 +6,7 @@ const multer = require("multer");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-
+const fs = require("fs");
 const app = express();
 
 /* ===== ミドルウェア ===== */
@@ -16,8 +16,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"))); //画像�
 
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {  //写真アップロード時 → 自動でuploadsの空フォルダに画像が入る
-   cb(null, path.join(__dirname, "uploads"));
+  destination: (req, file, cb) => {
+    const star = req.body.star || "default";
+    const dir = path.join(__dirname, "uploads", star);
+    fs.mkdirSync(dir, { recursive: true }); // フォルダなければ作る
+    cb(null, dir);
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + "_" + file.originalname;
@@ -144,6 +147,8 @@ app.post("/stars", (req, res) => {
 });
 
 
+const fs = require("fs");
+
 //写真保存
 app.post("/upload", upload.single("photo"), (req, res) => {
   console.log("upload API called");
@@ -153,11 +158,34 @@ app.post("/upload", upload.single("photo"), (req, res) => {
     return res.status(400).json({ error: "ファイルがありません" });
   }
 
+  const star = req.body.star || "default";
+  const filePath = `/uploads/${star}/${req.file.filename}`; // 星座フォルダ込み
+
+
   res.json({
     message: "アップロード成功",
     filename: req.file.filename,
-    path: `/uploads/${req.file.filename}`
+    path: `/uploads/${star}/${req.file.filename}`
   });
+});
+
+// 指定星座の写真一覧取得
+app.get("/albums/:star", (req, res) => {
+  const star = req.params.star;
+  const dir = path.join(__dirname, "uploads", star);
+
+  if (!fs.existsSync(dir)) {
+    return res.json([]); // 画像なし
+  }
+
+  const files = fs.readdirSync(dir).filter(file => {
+    return /\.(jpg|jpeg|png|gif)$/i.test(file);
+  });
+
+  // URL パスに変換
+  const urls = files.map(f => `/uploads/${star}/${f}`);
+
+  res.json(urls);
 });
 
 

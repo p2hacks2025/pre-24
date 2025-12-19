@@ -61,6 +61,11 @@
   <a href="map.html" class="btn">Back to Map</a>
 
   <script>
+
+    // ===== URLパラメータから星座名を取得 =====
+    const params = new URLSearchParams(window.location.search);
+    const starName = params.get("name");
+    
     async function upload() {
       const fileInput = document.getElementById("photo");
       if (!fileInput.files.length) {
@@ -70,6 +75,12 @@
 
       const formData = new FormData();
       formData.append("photo", fileInput.files[0]);
+
+      //星座情報を追加
+      if (starName) {
+        formData.append("star", starName);
+      }
+
 
       try {
         const res = await fetch("http://localhost:3000/upload", {

@@ -143,10 +143,6 @@ app.post("/stars", (req, res) => {
   res.json(starSigns);
 });
 
-// 星座一覧
-app.get("/stars", (req, res) => {
-  res.json(starSigns);
-});
 
 //写真保存
 app.post("/upload", upload.single("photo"), (req, res) => {

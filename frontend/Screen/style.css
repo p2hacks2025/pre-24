@@ -8,16 +8,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100dvh;
 }
 
 .phone {
-  width: 360px;
-  height: 640px;
+  width: 100%;
+  max-width: 390px;
+  min-height: 100dvh;   
   background: white;
   border-radius: 20px;
   padding: 24px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -222,6 +225,7 @@ body {
 
 .upload-btn:hover {
   background-color: #2980b9;
+}
 /* =========================
    Setting Screen
 ========================= */
@@ -273,11 +277,10 @@ body {
 /* =========================
    Setting Scroll
 ========================= */
-
 .setting-scroll {
   overflow-y: auto;
-  max-height: 440px;
-  padding-right: 6px;
+  flex: 1;
+  padding-bottom: 20px;
 }
 
 /* =========================
@@ -326,16 +329,6 @@ body {
 
 .switch input:checked + .slider::before {
   transform: translateX(20px);
-}
-}
-
-/* =========================
-   Setting Scroll
-========================= */
-.setting-scroll {
-  overflow-y: auto;
-  height: calc(640px - 140px);
-  padding-bottom: 20px;
 }
 
 /* =========================

@@ -52,8 +52,8 @@
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body class="center">
-  <div class="stars" id="stars"></div>
   <div class="phone">
     <h1 class="title" id="map-title">Map</h1>
 
@@ -74,28 +74,14 @@
 
     const starName = getStarName();
 
-     // アップロードリンクにパラメータを付与
-     const uploadLink = document.getElementById("upload-link");
-     if (starName) {
-      uploadLink.href = `photo upload.html?name=${starName}`;
-     } else {
-       uploadLink.href = `photo upload.html`; // starName がない場合
-     }
-
+    // タイトル・アップロードリンク
+    const uploadLink = document.getElementById("upload-link");
     if (starName) {
-      document.getElementById("map-title").textContent = starName.toUpperCase() + " Map";
-    }
-
-    // ===== ダークモード =====
-    const toggle = document.getElementById("darkToggle");
-    if (toggle) {
-      const isDark = localStorage.getItem("darkMode") === "on";
-      document.body.classList.toggle("dark", isDark);
-      toggle.checked = isDark;
-      toggle.addEventListener("change", () => {
-        document.body.classList.toggle("dark", toggle.checked);
-        localStorage.setItem("darkMode", toggle.checked ? "on" : "off");
-      });
+      document.getElementById("map-title").textContent =
+        starName.toUpperCase() + " Map";
+      uploadLink.href = `photo upload.html?name=${starName}`;
+    } else {
+      uploadLink.href = "photo upload.html";
     }
 
     // ===== Google Maps 読み込み =====
@@ -123,26 +109,53 @@
         center: fallback
       });
 
-      // ===== 星座ピン =====
       const name = getStarName();
-      if (name) {
-        fetch(`http://localhost:3000/map/${name.toLowerCase()}`)
-          .then(res => res.json())
-          .then(pins => {
-            console.log("pins:", pins);
-            if (pins.length > 0) {
-              map.setCenter({ lat: pins[0].lat, lng: pins[0].lng });
-            }
-            pins.forEach(pin => {
-              new google.maps.Marker({
-                position: { lat: pin.lat, lng: pin.lng },
-                map,
-                title: pin.title
-              });
+      if (!name) return;
+
+      fetch(`http://localhost:3000/map/${name.toLowerCase()}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log("星座データ:", data);
+
+          const stars = data.stars;
+          const lines = data.lines;
+
+          // id → star 対応表
+          const starMap = {};
+
+          // ===== ピン表示 =====
+          stars.forEach(star => {
+            starMap[star.id] = star;
+
+            new google.maps.Marker({
+              position: { lat: star.lat, lng: star.lng },
+              map,
+              title: star.title
             });
-          })
-          .catch(err => console.error("星座ピン取得失敗", err));
-      }
+          });
+
+          // 中央寄せ
+          if (stars.length > 0) {
+            map.setCenter({ lat: stars[0].lat, lng: stars[0].lng });
+          }
+
+          // ===== 線を描画 =====
+          lines.forEach(line => {
+            const path = line.map(id => ({
+              lat: starMap[id].lat,
+              lng: starMap[id].lng
+            }));
+
+            new google.maps.Polyline({
+              path,
+              geodesic: true,
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              map
+            });
+          });
+        })
+        .catch(err => console.error("星座データ取得失敗", err));
 
       // ===== 現在地 =====
       if (navigator.geolocation) {
@@ -162,7 +175,5 @@
       }
     }
   </script>
-  <script src="stars.js"></script>
-
 </body>
 </html>

@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: sans-serif;
   background: #eee;
+  overflow-x: hidden;
 }
 
 .center {
@@ -13,8 +14,7 @@ body {
 
 .phone {
   width: 100%;
-  max-width: 390px;
-  min-height: 100dvh;   
+  max-width: 390px;   
   background: white;
   border-radius: 20px;
   padding: 24px;
@@ -494,4 +494,18 @@ body.dark .journey-card {
 /* ダークモード時は星を少し明るく */
 body.dark .star {
   opacity: 1;
+}
+
+.title-img {
+  margin-bottom: 10px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+}
+
+.title-img {
+  width: 80%;
+  max-width: 250px;
+  min-width: 150px;
+  height: auto;
+  display: block;
+  margin: 20px auto;
 }

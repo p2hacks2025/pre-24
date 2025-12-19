@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Photo Detail</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="album.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
     /* album-container 内の写真を横並びにする */
     #album-container {
@@ -32,6 +34,8 @@
 </head>
 
 <body>
+   <div class="center">
+    <div class="phone detail-phone">
   <h1>Photo Detail</h1>
 
   <!-- 元の仮の写真詳細 -->
@@ -41,65 +45,66 @@
   <div class="album-container" id="album-container"></div>
 
   <div id="comment-frame">
-    <p>ここにコメントが入ります（仮）</p>
+    <p>コメント</p>
   </div>
 
   <a href="album.html" class="btn">Back to Album</a>
-  <div class="small-box">
+  
+  <div class="fixed-thumb">
   <img src="images/album_detail_ex4.png" alt="アルバム詳細画像">
-    <img src="images/album_detail_ex2.png" alt="アルバム詳細画像">
-  </div>
+</div>
+
 
   <script>
-    // URLパラメータから星座名を取得
-    const params = new URLSearchParams(window.location.search);
-    const starName = params.get("id"); // album.html の ?id=aries など
+  // URLパラメータから星座名を取得
+  const params = new URLSearchParams(window.location.search);
+  const starName = params.get("star");
 
-    /*
-    // 元の仮データ表示（必要なら残す）
-    const photos = {
-      1: { desc: "写真1の詳細を表示中" },
-      2: { desc: "写真2の詳細を表示中" },
-      3: { desc: "写真3の詳細を表示中" }
-    };
+  console.log("starName =", starName);
 
-    // 仮データ表示
-    if (photos[starName]) {
-      document.getElementById("photo-detail").innerHTML = `<p>${photos[starName].desc}</p>`;
-    } else {
-      document.getElementById("photo-detail").innerHTML = "<p>写真が見つかりません</p>";
-    }
-    */
-    
+  // ===== サーバーから星座フォルダ内の写真を取得して表示 =====
+  async function loadAlbum() {
+    try {
+      // ★ APIは /images?star=○○
+      const res = await fetch(`http://localhost:3000/images?star=${starName}`);
+      const images = await res.json();
 
-    // ===== サーバーから星座フォルダ内の写真を取得して表示 =====
-    async function loadAlbum() {
-      try {
-        const res = await fetch(`http://localhost:3000/photos/${starName}`);
-        const images = await res.json();
+      const container = document.getElementById("album-container");
+      container.innerHTML = ""; // 既存内容クリア
 
-        const container = document.getElementById("album-container");
-        container.innerHTML = ""; // 既存内容クリア
-
-        if (images.length === 0) {
-          container.innerHTML = "<p>まだ写真がありません</p>";
-          return;
-        }
-
-        images.forEach(src => {
-          const img = document.createElement("img");
-          img.src = "http://localhost:3000" + imgData.path;
-          img.style.width = "150px";
-          img.style.margin = "10px";
-          container.appendChild(img);
-        });
-      } catch (err) {
-        console.error(err);
-        document.getElementById("album-container").innerHTML = "<p>読み込みに失敗しました</p>";
+      if (!starName) {
+        container.innerHTML = "<p>星座が指定されていません</p>";
+        return;
       }
-    }
 
-    loadAlbum();
-  </script>
+      if (images.length === 0) {
+        container.innerHTML = "<p>まだ写真がありません</p>";
+        return;
+      }
+
+      const photoDetail = document.getElementById("photo-detail");
+photoDetail.innerHTML = ""; // 中を空にする
+
+  // 1枚目の写真だけを中央に表示
+  const img = document.createElement("img");
+  img.src = `http://localhost:3000${images[0]}`;
+  img.style.width = "100%";
+  img.style.height = "100%";
+  img.style.objectFit = "cover";
+
+  photoDetail.appendChild(img);
+
+
+    } catch (err) {
+      console.error(err);
+      document.getElementById("album-container").innerHTML =
+        "<p>写真がありません</p>";
+    }
+  }
+
+  loadAlbum();
+</script>
+ </div>
+  </div>
 </body>
 </html>

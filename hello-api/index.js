@@ -166,23 +166,20 @@ app.post("/upload", upload.single("photo"), (req, res) => {
   });
 });
 
-// 指定星座の写真一覧取得
-app.get("/albums/:star", (req, res) => {
+// 星座ごとの写真一覧取得
+app.get("/photos/:star", (req, res) => {
   const star = req.params.star;
   const dir = path.join(__dirname, "uploads", star);
 
-  if (!fs.existsSync(dir)) {
-    return res.json([]); // 画像なし
-  }
+ // フォルダがなければ作成
+ if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+ 
 
-  const files = fs.readdirSync(dir).filter(file => {
-    return /\.(jpg|jpeg|png|gif)$/i.test(file);
-  });
+  const files = fs.readdirSync(dir).map(f => ({
+    path: `/uploads/${star}/${f}`
+  }));
 
-  // URL パスに変換
-  const urls = files.map(f => `/uploads/${star}/${f}`);
-
-  res.json(urls);
+  res.json(files);
 });
 
 

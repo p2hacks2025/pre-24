@@ -146,9 +146,6 @@ app.post("/stars", (req, res) => {
   res.json(starSigns);
 });
 
-
-const fs = require("fs");
-
 //写真保存
 app.post("/upload", upload.single("photo"), (req, res) => {
   console.log("upload API called");

@@ -71,55 +71,35 @@ body.center {
   color: white;
   text-decoration: none;
 }
-/* 写真枠 （アルバム詳細画面）*/
+
+/* =========================
+   Detail Page（スマホ枠前提）
+========================= */
+
+/* 写真枠 */
 #photo-detail {
-  margin: 30px auto;
-  padding: 20px;
-  width: 400px;         /* 横幅を固定 */
-  height: 400px;        /* 高さを固定 正方形 */
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 320px;
+  margin: 20px auto;
+  padding: 12px;
+
   background: #fff;
   border: 2px solid #ccc;
   border-radius: 10px;
-  text-align: center;
-  display: flex;        /* 中央寄せ用 */
-  align-items: center;  /* 縦方向中央 */
-  justify-content: center; /* 横方向中央 */
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* コメント枠 （アルバム詳細画面）*/
-#comment-frame {
-  margin: 20px auto;
-  padding: 20px;
-  width: 600px;
-  height: 200px;        /* 縦を長めに指定 */
-  background: #f9f9f9;
-  border: 2px solid #aaa;
-  border-radius: 8px;
-  text-align: left;
-
-}
-
-/* 左上の戻るボタン */
-.btn.home {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 8px 12px;
-  background-color: #3498db;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-/* 右上の小さめの四角(アルバム詳細) */
+/* アルバム詳細の小枠 */
 .small-box {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 320px;
+  margin: 16px auto;
+
   border: 2px solid #333;
   border-radius: 6px;
   overflow: hidden;
@@ -129,5 +109,44 @@ body.center {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
+
+/* コメント枠 */
+#comment-frame {
+  width: 100%;
+  margin: 16px auto;
+  padding: 16px;
+  min-height: 150px;
+
+  background: #f9f9f9;
+  border: 2px solid #aaa;
+  border-radius: 8px;
+}
+
+/* 戻るボタン */
+.btn.home {
+  margin: 20px auto 0;
+  display: block;
+  width: fit-content;
+}
+
+/* 画像共通 */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* 右上にあった画像を画面固定にする */
+.small-box {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+
+  width: 90px;
+  height: 90px;
+
+  z-index: 1000;
+}
+
+

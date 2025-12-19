@@ -82,14 +82,19 @@
         return;
       }
 
-      images.forEach(src => {
-        const img = document.createElement("img");
-        // ★ src は "/uploads/aries/xxx.jpg" なのでそのまま使う
-        img.src = `http://localhost:3000${src}`;
-        img.style.width = "150px";
-        img.style.margin = "10px";
-        container.appendChild(img);
-      });
+      const photoDetail = document.getElementById("photo-detail");
+photoDetail.innerHTML = ""; // 中を空にする
+
+  // 1枚目の写真だけを中央に表示
+  const img = document.createElement("img");
+  img.src = `http://localhost:3000${images[0]}`;
+  img.style.width = "100%";
+  img.style.height = "100%";
+  img.style.objectFit = "cover";
+
+  photoDetail.appendChild(img);
+
+
     } catch (err) {
       console.error(err);
       document.getElementById("album-container").innerHTML =

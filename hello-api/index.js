@@ -80,6 +80,31 @@ app.get("/hello", (req, res) => {
   res.send("Hello World");
 });
 
+
+
+// 星座ごとの画像一覧取得
+app.get("/images", (req, res) => {
+  const star = req.query.star;
+  if (!star) {
+    return res.status(400).json({ error: "starが指定されていません" });
+  }
+
+  const dir = path.join(__dirname, "uploads", star);
+
+  if (!fs.existsSync(dir)) {
+    return res.json([]); // フォルダがなければ空
+  }
+
+  const files = fs.readdirSync(dir);
+
+  // 画像URLに変換
+  const imageUrls = files.map(file =>
+    `/uploads/${star}/${file}`
+  );
+
+  res.json(imageUrls);
+});
+
 // Google Maps APIキー
 app.get("/maps", (req, res) => {
   console.log("ENV:", process.env.GOOGLE_MAPS_API_KEY);

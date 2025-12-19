@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: sans-serif;
   background: #eee;
+  overflow-x: hidden;
 }
 
 .center {
@@ -13,8 +14,7 @@ body {
 
 .phone {
   width: 100%;
-  max-width: 390px;
-  min-height: 100dvh;   
+  max-width: 390px;   
   background: white;
   border-radius: 20px;
   padding: 24px;

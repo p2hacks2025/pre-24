@@ -19,16 +19,21 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"))); //画像�
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const star = req.query.star || "default";
-    const dir = path.join(__dirname, "uploads", star);
-    fs.mkdirSync(dir, { recursive: true }); // フォルダなければ作る
+    const star = req.body.star || req.query.star || "default";
+    const userId = req.body.user_id || "guest";
+
+    const dir = path.join(__dirname, "uploads", star, String(userId));
+    fs.mkdirSync(dir, { recursive: true });
+
     cb(null, dir);
   },
   filename: (req, file, cb) => {
-    const uniqueName = Date.now() + "_" + file.originalname;
+    const userId = req.body.user_id || "guest";
+    const uniqueName = `${userId}_${Date.now()}_${file.originalname}`;
     cb(null, uniqueName);
   }
 });
+
 
 const upload = multer({ storage });
 
@@ -165,7 +170,7 @@ app.post("/users", (req, res) => {
   res.json(user);
 });
 
-// ログイン
+// POSTログイン
 app.post("/login", (req, res) => {
   const {username, password} = req.body;
 
@@ -183,6 +188,32 @@ app.post("/login", (req, res) => {
     username: user.username
   });
 });
+
+// GETログイン
+app.get("/login", (req, res) => {
+  const { username, password } = req.query;
+
+  if (!username || !password) {
+    return res.status(400).json({
+      error: "username または password が不足しています"
+    });
+  }
+
+  const user = users.find(
+    u => u.username === username && u.password === password
+  );
+
+  if (!user) {
+    return res.status(401).json({ error: "ログイン失敗" });
+  }
+
+  res.json({
+    message: "ログイン成功",
+    user_id: user.user_id,
+    username: user.username
+  });
+});
+
 
 //　星座保存
 app.post("/stars", (req, res) => {
@@ -222,26 +253,25 @@ app.post("/upload", upload.single("photo"), (req, res) => {
 
   const star = req.body.star || "default";
 
-  const filePath = `/uploads/${star}/${req.file.filename}`; // 星座フォルダ込み
+  const userId = req.body.user_id || "guest";
+  const filePath = `/uploads/${star}/${userId}/${req.file.filename}`;
 
   res.json({
     message: "アップロード成功",
     filename: req.file.filename,
-    path: `/uploads/${star}/${req.file.filename}`
+    path: filePath
   });
 });
 
 //星座ごとの写真一覧取得
-app.get("/photos/:star", (req, res) => {
-  const star = req.params.star;
-  const dir = path.join(__dirname, "uploads", star);
+app.get("/photos/:star/:userId", (req, res) => {
+  const { star, userId } = req.params;
+  const dir = path.join(__dirname, "uploads", star, userId);
 
- //フォルダがなければ作成
- if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
- 
+  if (!fs.existsSync(dir)) return res.json([]);
 
   const files = fs.readdirSync(dir).map(f => ({
-    path: `/uploads/${star}/${f}`
+    path: `/uploads/${star}/${userId}/${f}`
   }));
 
   res.json(files);

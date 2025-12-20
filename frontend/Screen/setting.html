@@ -22,7 +22,7 @@
 
         <a href="account.html" class="setting-item">
           <span>User Name</span>
-          <span class="setting-value">Guest</span>
+          <span class="setting-value" id="username">Guest</span>
         </a>
 
         <a href="login.html" class="setting-item link">
@@ -136,6 +136,15 @@
       localStorage.setItem("starEffect", "off");
     }
   });
+
+  // ===== ユーザー名表示 =====
+const username = localStorage.getItem("username");
+const usernameElem = document.getElementById("username");
+
+if (username && usernameElem) {
+  usernameElem.textContent = username;
+}
+
 </script>
 
 </body>

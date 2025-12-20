@@ -383,4 +383,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+#写真用フォルダのpush防止
+/uploads
+
 # End of https://www.toptal.com/developers/gitignore/api/python,unity,node

@@ -88,10 +88,12 @@ async function loadAlbum() {
     container.innerHTML = "";
 
     // 画像が1枚もない場合の表示
-    if (images.length === 0) {
-      container.innerHTML = "<p>まだ写真がありません</p>";
-      return;
-    }
+if (images.length === 0) {
+  const photoDetail = document.getElementById("photo-detail");
+  photoDetail.innerHTML = "<p class='no-photo'>まだ写真がありません</p>";
+  return;
+  }
+
 
     // 真ん中の大きな写真枠を取得して初期化
     const photoDetail = document.getElementById("photo-detail");

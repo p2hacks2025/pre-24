@@ -2,16 +2,17 @@ require("dotenv").config({
   path: __dirname + "/.env"
 });
 
-const multer = require("multer");
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
-const fs = require("fs");
+/*==ライブラリ読み取り==*/
+const multer = require("multer"); //写真アップロード
+const express = require("express"); //サーバー本体
+const cors = require("cors"); //フロントと通信
+const path = require("path"); //OS依存しないパス操作
+const fs = require("fs"); //ファイルの読み書き
 const app = express();
-const FILE = path.join(__dirname, "albumComments.json");
+const FILE = path.join(__dirname, "albumComments.json"); //コメントをJSONファイルに保存
 
 /* ===== ミドルウェア ===== */
-app.use(cors());
+app.use(cors()); //フロントからの通信を許可
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads"))); //画像表示
 

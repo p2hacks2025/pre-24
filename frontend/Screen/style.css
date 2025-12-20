@@ -509,3 +509,14 @@ body.dark .star {
   display: block;
   margin: 20px auto;
 }
+
+/* =========================
+   Detailページのタイトル調整
+========================= */
+.detail-phone h1 {
+  text-align: left;        /* 左寄せ */
+  padding-left: 16px;      /* 左の余白 */
+  padding-right: 80px;    /* 右上サムネイル分の余白 */
+  margin-top: 20px;        /* 上余白は必要に応じて調整 */
+  font-size: 28px;         /* 必要に応じてサイズ調整 */
+}

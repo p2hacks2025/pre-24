@@ -22,7 +22,9 @@ AsTerra(アステラ)<img src = "README-photo-/asterra ver2.png" width = 400>
 
 
 ## スクリーンショット(任意)
-ここにはスクリーンショットを貼ります。そのままでもよいですし、画像を編集しておしゃれにしてもよいです(全くの捏造というのはしないでください)。GitHubのエディタに画像をドロップ&ドロップすると張り付きます。
+<img src = "README-photo-/map.png" width = 200>  
+<img src = "README-photo-/album1.png" width = 200>  
+<img src = "README-photo-/album2.png" width = 200>
 
 ## 開発体制
 

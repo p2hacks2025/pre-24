@@ -19,17 +19,21 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"))); //画像�
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const star = req.query.star || "default";
-    const dir = path.join(__dirname, "uploads", star);
-    fs.mkdirSync(dir, { recursive: true }); // フォルダなければ作る
+    const star = req.body.star || req.query.star || "default";
+    const userId = req.body.user_id || "guest";
+
+    const dir = path.join(__dirname, "uploads", star, String(userId));
+    fs.mkdirSync(dir, { recursive: true });
+
     cb(null, dir);
   },
   filename: (req, file, cb) => {
-  const userId = req.body.user_id || "guest";
-  const uniqueName = `${userId}_${Date.now()}_${file.originalname}`;
-  cb(null, uniqueName);
-}
+    const userId = req.body.user_id || "guest";
+    const uniqueName = `${userId}_${Date.now()}_${file.originalname}`;
+    cb(null, uniqueName);
+  }
 });
+
 
 const upload = multer({ storage });
 

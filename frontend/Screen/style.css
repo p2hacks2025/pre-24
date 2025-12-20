@@ -324,7 +324,7 @@ body {
 
 /* ON状態 */
 .switch input:checked + .slider {
-  background-color: #c1b580;
+  background-color: #4cd964;
 }
 
 .switch input:checked + .slider::before {
@@ -508,4 +508,15 @@ body.dark .star {
   height: auto;
   display: block;
   margin: 20px auto;
+}
+
+/* =========================
+   Detailページのタイトル調整
+========================= */
+.detail-phone h1 {
+  text-align: left;        /* 左寄せ */
+  padding-left: 16px;      /* 左の余白 */
+  padding-right: 80px;    /* 右上サムネイル分の余白 */
+  margin-top: 20px;        /* 上余白は必要に応じて調整 */
+  font-size: 28px;         /* 必要に応じてサイズ調整 */
 }

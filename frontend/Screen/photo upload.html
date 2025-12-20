@@ -70,9 +70,14 @@
       <input type="file" id="photo" accept="image/*">
     </div>
 
+    <!-- 送信ボタン -->
     <button class="upload-btn" onclick="upload()">送信</button>
 
+    <!-- Back to Map ボタン -->
     <a href="map.html" class="btn">Back to Map</a>
+
+    <!-- アルバムページに移動するボタン -->
+    <a href="album.html" class="btn">Go to Album</a>
 
   </div>
 
@@ -93,7 +98,7 @@
       formData.append("star", starName);
 
       try {
-        const res = await fetch("http://localhost:3000/upload?star=aries", {
+        const res = await fetch(`http://localhost:3000/upload?star=${starName}`, {
           method: "POST",
           body: formData
         });

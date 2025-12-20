@@ -1,3 +1,7 @@
+/* =========================
+   Base Layout
+========================= */
+
 body.center {
   margin: 0;
   min-height: 100vh;
@@ -10,11 +14,35 @@ body.center {
   overflow-x: hidden;
 }
 
+/* =========================
+   Stars Background
+========================= */
+
 .stars {
   position: fixed;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
 }
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* =========================
+   Phone Frame
+========================= */
 
 .phone {
   width: 360px;
@@ -25,14 +53,26 @@ body.center {
   box-shadow: 0 0 30px rgba(0,0,0,0.6);
   position: relative;
   z-index: 1;
-  overflow-y: auto; 
+
+  /* 安定スクロール */
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-.title {
+/* =========================
+   Titles
+========================= */
+
+.title,
+.phone h1 {
   text-align: center;
   font-size: 28px;
   margin-bottom: 20px;
 }
+
+/* =========================
+   Journey / Album Cards
+========================= */
 
 .journey-list {
   display: grid;
@@ -48,7 +88,7 @@ body.center {
   color: white;
   text-decoration: none;
   font-size: 16px;
-  transition: transform 0.2s, background 0.2s;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .journey-card small {
@@ -61,10 +101,15 @@ body.center {
   background: rgba(255, 255, 255, 0.25);
 }
 
-.back-btn {
+/* =========================
+   Buttons
+========================= */
+
+.back-btn,
+.btn {
   display: block;
   margin: 25px auto 0;
-  width: 120px;
+  width: 140px;
   text-align: center;
   padding: 10px;
   border-radius: 20px;
@@ -73,8 +118,15 @@ body.center {
   text-decoration: none;
 }
 
+/* Detailページで btn を殺しすぎない */
+.phone .btn {
+  background: rgba(255,255,255,0.15);
+  padding: 10px;
+  color: white;
+}
+
 /* =========================
-   Detail Page（スマホ枠前提）
+   Detail Page
 ========================= */
 
 /* 写真枠 */
@@ -85,24 +137,38 @@ body.center {
   margin: 20px auto;
   padding: 12px;
 
-  background: #fff;
-  border: 2px solid #ccc;
-  border-radius: 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.12);
+  color: white;
 
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* アルバム詳細の小枠（通常） */
+/* コメント枠 */
+#comment-frame {
+  width: 100%;
+  margin: 16px 0;
+  padding: 16px;
+  min-height: 150px;
+
+  border-radius: 20px;
+  background: rgba(255,255,255,0.12);
+  color: white;
+}
+
+/* =========================
+   Small Photo Boxes
+========================= */
+
 .small-box {
   width: 100%;
   aspect-ratio: 1 / 1;
   max-width: 320px;
   margin: 16px auto;
 
-  border: 2px solid #333;
-  border-radius: 6px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -112,31 +178,9 @@ body.center {
   object-fit: cover;
 }
 
-/* コメント枠 */
-#comment-frame {
-  width: 100%;
-  margin: 16px auto;
-  padding: 16px;
-  min-height: 150px;
-
-  background: #f9f9f9;
-  border: 2px solid #aaa;
-  border-radius: 8px;
-}
-
-/* 共通画像 */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
 /* =========================
-   右上固定サムネイル
+   Fixed Thumbnail
 ========================= */
-
-.phone {
-  position: relative;
-}
 
 .fixed-thumb {
   position: absolute;
@@ -145,11 +189,8 @@ img {
 
   width: 90px;
   height: 90px;
-
-  border: 2px solid #333;
-  border-radius: 6px;
+  border-radius: 10px;
   overflow: hidden;
-
   z-index: 10;
 }
 
@@ -160,63 +201,9 @@ img {
 }
 
 /* =========================
-   Detailページ用リセット
+   Photo Scroll
 ========================= */
 
-/* Detail内のimgはstyle.cssの影響を受けない */
-.phone img {
-  max-width: none;
-}
-
-/* ボタンの見た目をDetail用に戻す */
-.phone .btn {
-  background: none;
-  padding: 0;
-   color: #fff;
-}
-
-/* =========================
-   Detail UI 調整（最終）
-========================= */
-
-#photo-detail,
-#comment-frame {
-  width: 100%;
-  margin: 16px 0;
-  padding: 16px;
-
-  border-radius: 20px;
-  background: rgba(255,255,255,0.12);
-  color: white;
-}
-
-
-/* =========================
-   Detail専用 phone 上書き
-========================= */
-
-.detail-phone {
-  width: 360px;
-  min-height: 640px;
-  background: rgba(20, 20, 40, 0.85);
-  border-radius: 24px;
-  padding: 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  box-sizing: border-box;
-}
-
-/*Photo Datail*/
-.phone h1 {
-  margin-top: 60px;
-  padding-right: 110px;
-  text-align: center;
-}
-
-/*写真スクロール用*/
 .photo-scroll {
   display: flex;
   width: 100%;
@@ -234,17 +221,11 @@ img {
   scroll-snap-align: center;
 }
 
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: twinkle 3s infinite ease-in-out;
-}
+/* =========================
+   Global Image Safety
+========================= */
 
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+img {
+  max-width: 100%;
+  height: auto;
 }

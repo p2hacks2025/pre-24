@@ -229,3 +229,14 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* 写真がないときのメッセージ */
+#photo-detail .no-photo {
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

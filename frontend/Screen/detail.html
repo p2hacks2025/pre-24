@@ -72,10 +72,7 @@
   // ===== アルバム写真を読み込んで表示する関数 =====
 async function loadAlbum() {
   try {
-    // URLパラメータから星座名を取得
-    const params = new URLSearchParams(window.location.search);
-    const starName = params.get("star");
-
+  
     // 星座名が指定されていない場合はメッセージを表示
     if (!starName) {
       document.getElementById("album-container").innerHTML = "<p>星座が指定されていません</p>";
@@ -150,7 +147,7 @@ loadAlbum();
       alert("コメントを保存しました");
     });
   loadComment();
-  
+
 </script>
  </div>
   </div>

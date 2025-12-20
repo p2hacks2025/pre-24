@@ -1,7 +1,8 @@
 # P2HACKS2025 アピールシート
 
 ## プロダクト名
-AsTerra(アステラ)<img src = "README-photo-/asterra ver2.png" width = 400>
+AsTerra(アステラ)のロゴ（左）とアイコン（右）  
+<img src = "README-photo-/asterra ver2.png" width = 400><img src = "README-photo-/asterra icon.png" width = 200>
 
 ## コンセプト
 このアプリにおける「きらきら」は、星座の輝きといった直接的な光だけを指すものではありません。写真として残る思い出や、集めた場所を後から振り返った時に感じる、目には見えない輝きも表現しています。

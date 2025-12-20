@@ -324,7 +324,7 @@ body {
 
 /* ON状態 */
 .switch input:checked + .slider {
-  background-color: #4cd964;
+  background-color: #c1b580;
 }
 
 .switch input:checked + .slider::before {

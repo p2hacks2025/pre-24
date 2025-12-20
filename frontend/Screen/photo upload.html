@@ -69,7 +69,7 @@
     async function upload() {
       const fileInput = document.getElementById("photo");
       if (!fileInput.files.length) {
-        alert("写真を選択してください");
+        alert("写真を選択");
         return;
       }
 
@@ -93,7 +93,7 @@
 
         fileInput.value = "";
 
-        alert("アップロード完了！（仮）");
+        alert("アップロード完了");
       } catch (err) {
         console.error(err);
         alert("アップロードに失敗しました");

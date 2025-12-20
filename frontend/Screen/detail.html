@@ -69,49 +69,59 @@
 
   console.log("starName =", starName);
 
-  // ===== サーバーから星座フォルダ内の写真を取得して表示 =====
-  async function loadAlbum() {
-    try {
-      // ★ APIは /images?star=○○
-      const res = await fetch(`http://localhost:3000/images?star=${starName}`);
-      const images = await res.json();
-
-      const container = document.getElementById("album-container");
-      container.innerHTML = ""; // 既存内容クリア
-
-      if (!starName) {
-        container.innerHTML = "<p>星座が指定されていません</p>";
-        return;
-      }
-
-      if (images.length === 0) {
-        container.innerHTML = "<p>まだ写真がありません</p>";
-        return;
-      }
-
-      const photoDetail = document.getElementById("photo-detail");
-photoDetail.innerHTML = ""; // 中を空にする
-
-  // 1枚目の写真だけを中央に表示
-  const img = document.createElement("img");
-  img.src = `http://localhost:3000${images[0]}`;
-  img.style.width = "100%";
-  img.style.height = "100%";
-  img.style.objectFit = "cover";
-
-  photoDetail.appendChild(img);
-
-
-    } catch (err) {
-      console.error(err);
-      document.getElementById("album-container").innerHTML =
-        "<p>写真がありません</p>";
+  // ===== アルバム写真を読み込んで表示する関数 =====
+async function loadAlbum() {
+  try {
+  
+    // 星座名が指定されていない場合はメッセージを表示
+    if (!starName) {
+      document.getElementById("album-container").innerHTML = "<p>星座が指定されていません</p>";
+      return;
     }
+
+    // サーバーから星座ごとの画像配列を取得
+    const res = await fetch(`http://localhost:3000/images?star=${starName}`);
+    const images = await res.json();
+
+    // サムネイル用コンテナをクリア
+    const container = document.getElementById("album-container");
+    container.innerHTML = "";
+
+    // 画像が1枚もない場合の表示
+    if (images.length === 0) {
+      container.innerHTML = "<p>まだ写真がありません</p>";
+      return;
+    }
+
+    // 真ん中の大きな写真枠を取得して初期化
+    const photoDetail = document.getElementById("photo-detail");
+    photoDetail.innerHTML = "";
+
+    // 横スクロール用のラッパーを作成
+    const scrollWrapper = document.createElement("div");
+    scrollWrapper.classList.add("photo-scroll");
+
+    // 取得した画像をすべてループして img 要素を作成し、ラッパーに追加
+    images.forEach((image) => {
+      const img = document.createElement("img");
+      img.src = `http://localhost:3000${image}`; // サーバーからの画像パス
+      scrollWrapper.appendChild(img);
+    });
+
+    // 作成した横スクロールラッパーを中央の枠に追加
+    photoDetail.appendChild(scrollWrapper);
+
+  } catch (err) {
+    // エラー時の表示とログ
+    console.error(err);
+    document.getElementById("album-container").innerHTML = "<p>写真がありません</p>";
   }
+}
 
-  loadAlbum();
+// ページ読み込み時にアルバムをロード
+loadAlbum();
 
-  // コメントの追加
+ // コメントの追加
   async function loadComment() {
     const res = await fetch(
       `http://localhost:3000/albums/${starName}/comment`
@@ -137,6 +147,7 @@ photoDetail.innerHTML = ""; // 中を空にする
       alert("コメントを保存しました");
     });
   loadComment();
+
 </script>
  </div>
   </div>

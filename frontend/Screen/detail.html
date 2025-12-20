@@ -80,7 +80,7 @@ async function loadAlbum() {
     }
 
     // サーバーから星座ごとの画像配列を取得
-    const res = await fetch(`http://localhost:3000/images?star=${starName}`);
+    const res = await fetch(`http://localhost:3000/photos/${starName}`);
     const images = await res.json();
 
     // サムネイル用コンテナをクリア
@@ -104,7 +104,7 @@ async function loadAlbum() {
     // 取得した画像をすべてループして img 要素を作成し、ラッパーに追加
     images.forEach((image) => {
       const img = document.createElement("img");
-      img.src = `http://localhost:3000${image}`; // サーバーからの画像パス
+      img.src = `http://localhost:3000${image.path}`; // サーバーからの画像パス
       scrollWrapper.appendChild(img);
     });
 

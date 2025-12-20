@@ -14,12 +14,13 @@
     <h1 class="title">Journey App</h1>
 
     <div class="login-area">
-      <input type="text" placeholder="User Name">
-      <input type="email" placeholder="Email">
-      <input type="password" placeholder="Password">
+      <input id="username" type="text" placeholder="User Name">
+      <input id="email" type="email" placeholder="Email">
+      <input id="password" type="password" placeholder="Password">
 
       <!-- 仮登録 -->
-      <a href="home.html" class="login-btn">REGISTER</a>
+       <a class="login-btn" onclick="signup()">REGISTER</a>
+      <!-- <a href="home.html" class="login-btn">REGISTER</a> -->
     </div>
 
     <p class="signup-link">
@@ -74,6 +75,41 @@
         }, 700);
       }
     });
+
+      // ===== サインアップ処理（追加）=====
+  async function signup() {
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (!username || !email || !password) {
+      alert("すべて入力してください");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, email, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("登録完了！ログインしてください");
+        location.href = "login.html";
+      } else {
+        alert(data.error || "登録失敗");
+      }
+    } catch (err) {
+      alert("サーバーに接続できません");
+    }
+  }
+
+
   </script>
 </body>
 </html>

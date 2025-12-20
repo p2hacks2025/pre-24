@@ -174,10 +174,6 @@ img {
 }
 
 /* card系の影響を無効化 */
-.phone .card,
-.phone .journey-card {
-  all: unset;
-}
 
 /* =========================
    Detail UI 調整（最終）

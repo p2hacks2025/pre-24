@@ -23,9 +23,7 @@ AsTerra(アステラ)のロゴ（左）とアイコン（右）
 
 
 ## スクリーンショット(任意)
-<img src = "README-photo-/map.png" width = 200>
-<img src = "README-photo-/album1.png" width = 200>
-<img src = "README-photo-/album2.png" width = 200>
+<img src = "README-photo-/map.png" width = 200><img src = "README-photo-/album1.png" width = 200><img src = "README-photo-/album2.png" width = 200>
 
 ## 開発体制
 
